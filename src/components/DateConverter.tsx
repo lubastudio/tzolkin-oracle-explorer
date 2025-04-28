@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { calculateKin, yearValues } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
@@ -39,24 +38,24 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           <h3 className="text-lg mb-2">Data Gregoriana</h3>
           <form onSubmit={handleDateSubmit} className="space-y-3">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Dia</label>
+              <label className="block text-sm text-black mb-1">Dia</label>
               <input
                 type="number"
                 min="1"
                 max="31"
                 value={day}
                 onChange={(e) => setDay(parseInt(e.target.value))}
-                className="w-full px-3 py-2 bg-tzolkin-cosmic text-white rounded border border-gray-700"
+                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               />
             </div>
             
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Mês</label>
+              <label className="block text-sm text-black mb-1">Mês</label>
               <select
                 value={month}
                 onChange={(e) => setMonth(parseInt(e.target.value))}
-                className="w-full px-3 py-2 bg-tzolkin-cosmic text-white rounded border border-gray-700"
+                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               >
                 <option value="0">Janeiro</option>
@@ -75,11 +74,11 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
             </div>
             
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Ano</label>
+              <label className="block text-sm text-black mb-1">Ano</label>
               <select
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
-                className="w-full px-3 py-2 bg-tzolkin-cosmic text-white rounded border border-gray-700"
+                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               >
                 {availableYears.map(year => (
@@ -101,14 +100,14 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           <h3 className="text-lg mb-2">Número do Kin</h3>
           <form onSubmit={handleDirectKinSubmit} className="space-y-3">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Informe o Kin (1-260)</label>
+              <label className="block text-sm text-black mb-1">Informe o Kin (1-260)</label>
               <input
                 type="number"
                 min="1"
                 max="260"
                 value={directKin}
                 onChange={(e) => setDirectKin(e.target.value)}
-                className="w-full px-3 py-2 bg-tzolkin-cosmic text-white rounded border border-gray-700"
+                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               />
             </div>
