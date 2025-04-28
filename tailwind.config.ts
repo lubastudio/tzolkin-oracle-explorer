@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom Tzolkin colors
+				tzolkin: {
+					red: '#E63946',
+					white: '#F1FAEE',
+					blue: '#457B9D',
+					yellow: '#FFD166',
+					cosmic: '#1D3557',
+					bg: '#0A0A1B',
+					lightBg: '#121232',
 				}
+			},
+			backgroundImage: {
+				'cosmic-gradient': 'linear-gradient(to bottom, #0f0c29, #302b63, #24243e)',
+				'cosmic-purple': 'linear-gradient(135deg, #1A1F2C 0%, #2D1F54 100%)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +99,16 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				'pulse-soft': {
+					'0%, 100%': { opacity: 1 },
+					'50%': { opacity: 0.8 },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-soft': 'pulse-soft 3s infinite ease-in-out',
 			}
 		}
 	},
