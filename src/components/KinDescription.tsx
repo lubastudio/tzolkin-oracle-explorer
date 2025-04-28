@@ -14,7 +14,7 @@ const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
     return (
       <div>
         <p className="mb-4">
-          <span className="font-semibold">Kin {kin}:</span> {tone.name} {seal.name} representa 
+          <span className="font-semibold">Kin {kin}:</span> {seal.name} {tone.name} representa 
           a energia de {seal.description} combinada com o tom {tone.name} ({tone.description}).
         </p>
         
@@ -47,7 +47,7 @@ const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
       <h2 className="section-title">Significado do Kin</h2>
-      <div className="text-gray-200">
+      <div className="text-black">
         {generateDescription()}
       </div>
     </div>

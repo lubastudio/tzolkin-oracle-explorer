@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { getKinComponents, getKinColorClass } from '@/lib/tzolkinData';
 
