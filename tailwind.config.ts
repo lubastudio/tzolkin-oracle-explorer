@@ -25,12 +25,12 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))'
+          DEFAULT: '#000000',
+          foreground: '#FFFFFF'
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))'
+          DEFAULT: '#1a1a1a',
+          foreground: '#000000'
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -67,14 +67,14 @@ export default {
           white: '#fff8f0',
           blue: '#309cb5',
           yellow: '#fdc665',
-          cosmic: '#1D3557',
+          cosmic: '#000000',
           bg: '#FFFFFF',
           lightBg: '#FFFFFF',
         }
       },
       backgroundImage: {
-        'cosmic-gradient': 'linear-gradient(to bottom, #0f0c29, #302b63, #24243e)',
-        'cosmic-purple': 'linear-gradient(135deg, #1A1F2C 0%, #2D1F54 100%)',
+        'cosmic-gradient': 'linear-gradient(to bottom, #FFFFFF, #FFFFFF)',
+        'cosmic-purple': 'linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 100%)',
       },
       borderRadius: {
         lg: 'var(--radius)',

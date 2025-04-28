@@ -11,13 +11,13 @@ const Index = () => {
   const [view, setView] = useState<'oracle' | 'wave'>('oracle');
 
   return (
-    <div className="min-h-screen bg-cosmic-gradient">
-      <header className="p-6 text-center border-b border-primary/30">
-        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 animate-pulse-soft">
-          Tzolkin Oracle Explorer
+    <div className="min-h-screen bg-white">
+      <header className="p-6 text-center border-b border-black/30">
+        <h1 className="text-4xl font-bold text-black">
+          Calculadora de Kin
         </h1>
-        <p className="text-lg text-gray-300 mt-2">
-          Explore a matriz Tzolkin, descubra seu Kin e navegue pelo oráculo galáctico
+        <p className="text-lg text-black mt-2">
+          Navegue pelo oráculo galáctico inspirado no calendário Maia
         </p>
       </header>
       

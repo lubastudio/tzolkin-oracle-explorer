@@ -5,33 +5,33 @@
 
 @layer base {
   :root {
-    --background: 240 70% 5%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
 
-    --card: 240 50% 8%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
 
-    --popover: 240 50% 8%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    --primary: 270 60% 60%;
+    --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 40% 15%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 0%;
 
-    --muted: 240 40% 15%;
-    --muted-foreground: 240 10% 70%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 270 60% 60%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 0 0% 0%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 30% 20%;
-    --input: 240 30% 20%;
-    --ring: 270 60% 60%;
+    --border: 0 0% 0%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 0%;
 
     --radius: 0.5rem;
   }
@@ -41,7 +41,7 @@
   }
 
   body {
-    @apply bg-tzolkin-bg text-foreground bg-cosmic-gradient min-h-screen;
+    @apply bg-white text-black;
     font-family: 'Inter', sans-serif;
   }
 }
@@ -56,6 +56,6 @@
   }
   
   .section-title {
-    @apply text-xl font-semibold mb-3 text-white border-b border-primary pb-2;
+    @apply text-xl font-semibold mb-3 text-black border-b border-black pb-2;
   }
 }
