@@ -8,17 +8,16 @@ interface TzolkinMatrixProps {
 }
 
 const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect }) => {
-  // Generate the 13x20 Tzolkin matrix
   const renderMatrix = () => {
-    const rows = [];
+    const columns = [];
     
-    // Rows (13 galactic tones)
+    // Generate 13 columns
     for (let tone = 1; tone <= 13; tone++) {
       const cells = [];
       
-      // Columns (20 solar seals)
+      // Each column has 20 seals
       for (let seal = 1; seal <= 20; seal++) {
-        const kin = (tone - 1) * 20 + seal;
+        const kin = (seal - 1) * 13 + tone;
         const isSelected = kin === selectedKin;
         
         cells.push(
@@ -34,20 +33,20 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         );
       }
       
-      rows.push(
-        <div key={`tone-${tone}`} className="flex flex-row">
+      columns.push(
+        <div key={`tone-${tone}`} className="flex flex-col">
           {cells}
         </div>
       );
     }
     
-    return rows;
+    return columns;
   };
 
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg overflow-x-auto">
+    <div className="bg-tzolkin-bg rounded-lg p-4 shadow-lg overflow-x-auto">
       <h2 className="section-title">Matriz Tzolkin</h2>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-row justify-center">
         {renderMatrix()}
       </div>
     </div>
