@@ -29,6 +29,7 @@ const Index = () => {
           />
           
           <div className="space-y-6">
+            <DateConverter onKinSelect={setSelectedKin} />
             <KinInfo kin={selectedKin} />
             <OracleView
               kin={selectedKin}
@@ -40,7 +41,6 @@ const Index = () => {
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <DateConverter onKinSelect={setSelectedKin} />
           <KinDescription kin={selectedKin} />
         </div>
       </main>

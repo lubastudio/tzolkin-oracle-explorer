@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { calculateKin, yearValues } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
 
@@ -7,10 +8,17 @@ interface DateConverterProps {
 }
 
 const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
-  const [day, setDay] = useState<number>(1);
-  const [month, setMonth] = useState<number>(0); // January is 0
-  const [year, setYear] = useState<string>("2024");
+  const today = new Date();
+  const [day, setDay] = useState<number>(today.getDate());
+  const [month, setMonth] = useState<number>(today.getMonth()); // January is 0
+  const [year, setYear] = useState<string>(today.getFullYear().toString());
   const [directKin, setDirectKin] = useState<string>("");
+  
+  useEffect(() => {
+    // Calculate the kin for today when component mounts
+    const calculatedKin = calculateKin(year, month, day);
+    onKinSelect(calculatedKin);
+  }, []);
 
   const handleDateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +43,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h3 className="text-lg mb-2">Data Gregoriana</h3>
+          <h3 className="text-lg mb-2 text-black">Data Gregoriana</h3>
           <form onSubmit={handleDateSubmit} className="space-y-3">
             <div>
               <label className="block text-sm text-black mb-1">Dia</label>
@@ -97,7 +105,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         </div>
         
         <div>
-          <h3 className="text-lg mb-2">Número do Kin</h3>
+          <h3 className="text-lg mb-2 text-black">Número do Kin</h3>
           <form onSubmit={handleDirectKinSubmit} className="space-y-3">
             <div>
               <label className="block text-sm text-black mb-1">Informe o Kin (1-260)</label>

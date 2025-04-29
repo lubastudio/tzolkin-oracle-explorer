@@ -16,6 +16,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
       
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex flex-col items-center">
+          <span className="font-medium text-black mb-1">Selo</span>
           <div className={`w-24 h-24 ${colorClass} rounded-full flex items-center justify-center mb-2 cursor-pointer hover:scale-105 transition`}>
             <span className="text-2xl font-bold">{seal.name.split(" ")[0]}</span>
           </div>
@@ -32,6 +33,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         </div>
         
         <div className="flex flex-col items-center">
+          <span className="font-medium text-black mb-1">Tom</span>
           <div className="w-24 h-24 rounded-full flex items-center justify-center mb-2 bg-white border-2 border-black cursor-pointer hover:scale-105 transition">
             <span className="text-3xl font-bold text-black">{tone.number}</span>
           </div>
