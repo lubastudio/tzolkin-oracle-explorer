@@ -13,11 +13,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <main className="container mx-auto py-6 px-4 space-y-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <TzolkinMatrix
-            selectedKin={selectedKin}
-            onKinSelect={setSelectedKin}
-          />
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div>
+            <TzolkinMatrix
+              selectedKin={selectedKin}
+              onKinSelect={setSelectedKin}
+            />
+          </div>
           
           <div className="space-y-6">
             <DateConverter onKinSelect={setSelectedKin} />
@@ -29,10 +31,10 @@ const Index = () => {
               onViewChange={setView}
             />
           </div>
-        </div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <KinDescription kin={selectedKin} />
+          
+          <div>
+            <KinDescription kin={selectedKin} />
+          </div>
         </div>
       </main>
       
