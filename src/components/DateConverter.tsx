@@ -64,26 +64,28 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           <div>
             <label className="block text-sm text-black mb-1">Dia</label>
             <div className="flex items-center">
-              <Input
-                type="number"
-                min="1"
-                max="31"
-                value={day}
-                onChange={(e) => setDay(parseInt(e.target.value))}
-                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
-                required
-              />
-              <div className="flex flex-col ml-1">
-                <button 
-                  type="button" 
-                  onClick={incrementDay}
-                  className="text-black bg-white border border-gray-300 px-1 rounded-t"
-                >▲</button>
-                <button 
-                  type="button" 
-                  onClick={decrementDay}
-                  className="text-black bg-white border border-gray-300 px-1 rounded-b"
-                >▼</button>
+              <div className="relative flex-1">
+                <Input
+                  type="number"
+                  min="1"
+                  max="31"
+                  value={day}
+                  onChange={(e) => setDay(parseInt(e.target.value))}
+                  className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
+                  required
+                />
+                <div className="absolute right-0 inset-y-0 flex flex-col pr-1">
+                  <button 
+                    type="button" 
+                    onClick={incrementDay}
+                    className="text-xs text-black hover:bg-gray-100 px-1"
+                  >▲</button>
+                  <button 
+                    type="button" 
+                    onClick={decrementDay}
+                    className="text-xs text-black hover:bg-gray-100 px-1"
+                  >▼</button>
+                </div>
               </div>
             </div>
           </div>
@@ -113,7 +115,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           
           <div>
             <label className="block text-sm text-black mb-1">Ano</label>
-            <div className="flex items-center">
+            <div className="relative">
               <Input
                 type="number"
                 value={year}
@@ -121,16 +123,16 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
                 className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               />
-              <div className="flex flex-col ml-1">
+              <div className="absolute right-0 inset-y-0 flex flex-col pr-1">
                 <button 
                   type="button" 
                   onClick={incrementYear}
-                  className="text-black bg-white border border-gray-300 px-1 rounded-t"
+                  className="text-xs text-black hover:bg-gray-100 px-1"
                 >▲</button>
                 <button 
                   type="button" 
                   onClick={decrementYear}
-                  className="text-black bg-white border border-gray-300 px-1 rounded-b"
+                  className="text-xs text-black hover:bg-gray-100 px-1"
                 >▼</button>
               </div>
             </div>

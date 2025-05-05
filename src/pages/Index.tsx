@@ -12,15 +12,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="p-6 text-center border-b border-black/30">
-        <h1 className="text-4xl font-bold text-black">
-          Calculadora de Kin
-        </h1>
-        <p className="text-lg text-black mt-2">
-          Navegue pelo oráculo galáctico inspirado no calendário Maia
-        </p>
-      </header>
-      
       <main className="container mx-auto py-6 px-4 space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <TzolkinMatrix
