@@ -34,7 +34,7 @@ const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
   };
   
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg h-full">
+    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg h-auto">
       <h2 className="section-title">Significado do Kin</h2>
       <div className="text-black text-sm">
         {generateDescription()}

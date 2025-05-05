@@ -15,7 +15,7 @@ const OracleDescription: React.FC<OracleDescriptionProps> = ({ kin }) => {
   const hiddenKin = getKinComponents(oracle.hidden);
   
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
+    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg h-auto">
       <h2 className="section-title">Significado do Oráculo</h2>
       <div className="text-black text-sm space-y-3">
         <p>
