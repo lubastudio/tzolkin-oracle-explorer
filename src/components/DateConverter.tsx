@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { calculateKin, yearValues } from '@/lib/tzolkinData';
+import { calculateKinAccurate } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -16,13 +16,13 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   
   useEffect(() => {
     // Calculate the kin for today when component mounts
-    const calculatedKin = calculateKin(year.toString(), month, day);
+    const calculatedKin = calculateKinAccurate(year, month + 1, day);
     onKinSelect(calculatedKin);
-  }, []);
+  }, [onKinSelect]);
 
   const handleDateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const calculatedKin = calculateKin(year.toString(), month, day);
+    const calculatedKin = calculateKinAccurate(year, month + 1, day);
     onKinSelect(calculatedKin);
   };
 
@@ -34,21 +34,26 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   };
 
   const incrementYear = () => {
-    const newYear = year + 1;
-    if (yearValues[newYear.toString() as keyof typeof yearValues]) {
-      setYear(newYear);
-    }
+    setYear(year + 1);
   };
 
   const decrementYear = () => {
-    const newYear = year - 1;
-    if (yearValues[newYear.toString() as keyof typeof yearValues]) {
-      setYear(newYear);
-    }
+    setYear(year - 1);
   };
 
-  const currentYear = new Date().getFullYear();
-  const availableYears = Object.keys(yearValues);
+  const incrementDay = () => {
+    // Get days in current month
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const newDay = day + 1 > daysInMonth ? 1 : day + 1;
+    setDay(newDay);
+  };
+
+  const decrementDay = () => {
+    // Get days in current month
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const newDay = day - 1 < 1 ? daysInMonth : day - 1;
+    setDay(newDay);
+  };
 
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
@@ -58,15 +63,29 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         <div className="grid grid-cols-3 gap-3">
           <div>
             <label className="block text-sm text-black mb-1">Dia</label>
-            <Input
-              type="number"
-              min="1"
-              max="31"
-              value={day}
-              onChange={(e) => setDay(parseInt(e.target.value))}
-              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
-              required
-            />
+            <div className="flex items-center">
+              <Input
+                type="number"
+                min="1"
+                max="31"
+                value={day}
+                onChange={(e) => setDay(parseInt(e.target.value))}
+                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
+                required
+              />
+              <div className="flex flex-col ml-1">
+                <button 
+                  type="button" 
+                  onClick={incrementDay}
+                  className="text-black bg-white border border-gray-300 px-1 rounded-t"
+                >▲</button>
+                <button 
+                  type="button" 
+                  onClick={decrementDay}
+                  className="text-black bg-white border border-gray-300 px-1 rounded-b"
+                >▼</button>
+              </div>
+            </div>
           </div>
           
           <div>
