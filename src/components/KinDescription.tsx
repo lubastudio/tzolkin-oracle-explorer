@@ -13,12 +13,12 @@ const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
   const generateDescription = () => {
     return (
       <div>
-        <p className="mb-4">
+        <p className="mb-3">
           <span className="font-semibold">Kin {kin}:</span> {seal.name} {tone.name} representa 
-          a energia de {seal.description} combinada com o tom {tone.name} ({tone.description}).
+          a energia de {seal.description} combinada com o tom {tone.name}.
         </p>
         
-        <p className="mb-4">
+        <p className="mb-3">
           O <span className="font-semibold">{seal.name}</span> traz a energia de {seal.description}. 
           Esta energia nos conecta com a qualidade {seal.color === 'red' ? 'vermelha de iniciação' : 
           seal.color === 'white' ? 'branca de refinamento' : 
@@ -26,28 +26,17 @@ const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
           'amarela de maturação'}.
         </p>
         
-        <p className="mb-4">
-          O Tom <span className="font-semibold">{tone.name} ({tone.number})</span> é a energia de {tone.description}. 
-          Este tom galáctico nos ajuda a {
-            tone.number <= 3 ? 'identificar e definir' : 
-            tone.number <= 6 ? 'medir e organizar' : 
-            tone.number <= 9 ? 'equilibrar e harmonizar' : 
-            'refinar e manifestar'
-          } nossos potenciais.
-        </p>
-        
         <p>
-          Quando você vibra na frequência do Kin {kin}, você está alinhado com as energias cósmicas 
-          que facilitam {tone.description.toLowerCase()} através da {seal.description.toLowerCase()}.
+          O Tom <span className="font-semibold">{tone.name} ({tone.number})</span> representa {tone.description}.
         </p>
       </div>
     );
   };
   
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
+    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg h-full">
       <h2 className="section-title">Significado do Kin</h2>
-      <div className="text-black">
+      <div className="text-black text-sm">
         {generateDescription()}
       </div>
     </div>

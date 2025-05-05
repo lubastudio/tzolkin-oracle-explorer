@@ -5,6 +5,8 @@ import KinInfo from '@/components/KinInfo';
 import OracleView from '@/components/OracleView';
 import DateConverter from '@/components/DateConverter';
 import KinDescription from '@/components/KinDescription';
+import OracleDescription from '@/components/OracleDescription';
+import WaveDescription from '@/components/WaveDescription';
 
 const Index = () => {
   const [selectedKin, setSelectedKin] = useState<number>(35); // Default to Águia Solar Azul (Kin 35)
@@ -14,14 +16,14 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <main className="container mx-auto py-6 px-4 space-y-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div>
+          <div className="lg:col-span-1">
             <TzolkinMatrix
               selectedKin={selectedKin}
               onKinSelect={setSelectedKin}
             />
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-6 lg:col-span-1">
             <DateConverter onKinSelect={setSelectedKin} />
             <KinInfo kin={selectedKin} />
             <OracleView
@@ -32,9 +34,14 @@ const Index = () => {
             />
           </div>
           
-          <div>
+          <div className="space-y-6 lg:col-span-1">
             <KinDescription kin={selectedKin} />
+            <OracleDescription kin={selectedKin} />
           </div>
+        </div>
+        
+        <div className="mt-6">
+          <WaveDescription kin={selectedKin} />
         </div>
       </main>
       
