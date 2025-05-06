@@ -28,7 +28,6 @@ const guideSequences: Record<number, number[]> = {
   20: [20, 12, 4, 16, 8],  // Sun
 };
 
-// Corrigido para calcular o número do Kin usando a fórmula: (tone - 1) * 20 + seal
 export const calculateOracle = (kin: number) => {
   // First, get the components of the Kin
   const { tone, seal } = getKinComponents(kin);
@@ -73,40 +72,32 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
-  // Use the correct formula to calculate the Kin numbers: (tone - 1) * 20 + seal
-  const guideKin = (toneNumber - 1) * 20 + guideSealNumber;
-  const analogKin = (toneNumber - 1) * 20 + analogSealNumber;
-  const antipodeKin = (toneNumber - 1) * 20 + antipodeSealNumber;
-  const hiddenKin = (hiddenToneNumber - 1) * 20 + hiddenSealNumber;
-  
-  // Normalize to range 1-260 if needed
-  const normalizeKin = (kinNumber: number): number => {
-    let normalized = kinNumber;
-    while (normalized <= 0) normalized += 260;
-    while (normalized > 260) normalized -= 260;
-    return normalized;
-  };
+  // Calculate the correct Kin numbers for display
+  const guideKin = calculateKinWithToneAndSeal(toneNumber, guideSealNumber);
+  const analogKin = calculateKinWithToneAndSeal(toneNumber, analogSealNumber);
+  const antipodeKin = calculateKinWithToneAndSeal(toneNumber, antipodeSealNumber);
+  const hiddenKin = calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber);
   
   return {
     guide: {
-      kin: normalizeKin(guideKin),
-      tone: tone,                      // Same as original Kin's tone
-      seal: solarSeals[guideSealIndex] // Guide seal
+      kin: guideKin,
+      tone: tone,
+      seal: solarSeals[guideSealIndex]
     },
     analog: {
-      kin: normalizeKin(analogKin),
-      tone: tone,                      // Same as original Kin's tone 
-      seal: solarSeals[analogSealIndex] // Analog seal
+      kin: analogKin,
+      tone: tone,
+      seal: solarSeals[analogSealIndex]
     },
     antipode: {
-      kin: normalizeKin(antipodeKin),
-      tone: tone,                      // Same as original Kin's tone
-      seal: solarSeals[antipodeSealIndex] // Antipode seal  
+      kin: antipodeKin,
+      tone: tone, 
+      seal: solarSeals[antipodeSealIndex]
     },
     hidden: {
-      kin: normalizeKin(hiddenKin),
-      tone: galacticTones[hiddenToneIndex], // Different tone for hidden
-      seal: solarSeals[hiddenSealIndex]     // Hidden seal
+      kin: hiddenKin,
+      tone: galacticTones[hiddenToneIndex],
+      seal: solarSeals[hiddenSealIndex]
     }
   };
 };
