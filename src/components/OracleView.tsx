@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { calculateOracle, getKinComponents, getKinColorClass, calculateWave } from '@/lib/tzolkinData';
 
@@ -16,8 +17,25 @@ const OracleView: React.FC<OracleViewProps> = ({
   const oracle = calculateOracle(kin);
   const wave = calculateWave(kin);
   
+  // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
+  const formatKinName = (sealName: string, toneName: string, color: string) => {
+    // Extrai apenas o nome base do selo (sem a cor)
+    const baseSealName = sealName.split(' ')[0];
+    
+    // Cor em português
+    const colorTranslation = {
+      'red': 'Vermelho',
+      'white': 'Branco',
+      'blue': 'Azul',
+      'yellow': 'Amarelo'
+    };
+    
+    return `${baseSealName} ${toneName} ${colorTranslation[color as keyof typeof colorTranslation]}`;
+  };
+  
   const renderOracleItem = (title: string, kinData: {kin: number, tone: any, seal: any}, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
     const colorClass = getKinColorClass(kinData.kin);
+    const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
     return (
       <div className={`oracle-item flex flex-col items-center ${position === 'center' ? 'col-start-2 col-end-3 row-start-2 row-end-3' : ''} ${position === 'top' ? 'col-start-2 col-end-3 row-start-1 row-end-2' : ''} ${position === 'right' ? 'col-start-3 col-end-4 row-start-2 row-end-3' : ''} ${position === 'bottom' ? 'col-start-2 col-end-3 row-start-3 row-end-4' : ''} ${position === 'left' ? 'col-start-1 col-end-2 row-start-2 row-end-3' : ''}`}>
@@ -28,7 +46,7 @@ const OracleView: React.FC<OracleViewProps> = ({
         >
           <div className="font-bold">Kin {kinData.kin}</div>
         </div>
-        <span className="text-xs mt-1">{kinData.tone.name} {kinData.seal.name}</span>
+        <span className="text-xs mt-1">{kinName}</span>
       </div>
     );
   };
@@ -37,6 +55,7 @@ const OracleView: React.FC<OracleViewProps> = ({
     const { tone, seal } = getKinComponents(kinNumber);
     const colorClass = getKinColorClass(kinNumber);
     const isSelected = kinNumber === kin;
+    const kinName = formatKinName(seal.name, tone.name, seal.color);
     
     return (
       <div 
@@ -47,8 +66,7 @@ const OracleView: React.FC<OracleViewProps> = ({
         onClick={() => onKinSelect(kinNumber)}
       >
         <div className="text-sm font-bold">Kin {kinNumber}</div>
-        <div className="text-xs">{tone.name}</div>
-        <div className="text-xs">{seal.name}</div>
+        <div className="text-xs">{kinName}</div>
       </div>
     );
   };

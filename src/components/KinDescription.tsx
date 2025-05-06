@@ -9,12 +9,30 @@ interface KinDescriptionProps {
 const KinDescription: React.FC<KinDescriptionProps> = ({ kin }) => {
   const { tone, seal } = getKinComponents(kin);
   
+  // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
+  const formatKinName = () => {
+    // Extrai apenas o nome base do selo (sem a cor)
+    const baseSealName = seal.name.split(' ')[0];
+    
+    // Cor em português
+    const colorTranslation: Record<string, string> = {
+      'red': 'Vermelho',
+      'white': 'Branco',
+      'blue': 'Azul',
+      'yellow': 'Amarelo'
+    };
+    
+    return `${baseSealName} ${tone.name} ${colorTranslation[seal.color]}`;
+  };
+  
   // Generate a descriptive text based on the kin's components
   const generateDescription = () => {
+    const kinName = formatKinName();
+    
     return (
       <div>
         <p className="mb-3">
-          <span className="font-semibold">Kin {kin}:</span> {seal.name} {tone.name} representa 
+          <span className="font-semibold">Kin {kin}:</span> {kinName} representa 
           a energia de {seal.description} combinada com o tom {tone.name}.
         </p>
         

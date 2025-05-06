@@ -15,10 +15,10 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <main className="container mx-auto py-6 px-4 space-y-6">
-        {/* Section 1: 3-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Column 1: Date and Matrix */}
-          <div className="lg:col-span-1 space-y-6">
+        {/* Section 1: 3-column layout with adjusted widths */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Column 1: Date and Matrix - 43% */}
+          <div className="lg:col-span-5 space-y-6">
             <DateConverter onKinSelect={setSelectedKin} />
             <TzolkinMatrix
               selectedKin={selectedKin}
@@ -26,14 +26,14 @@ const Index = () => {
             />
           </div>
           
-          {/* Column 2: Kin Info and Kin Description */}
-          <div className="space-y-6 lg:col-span-1">
+          {/* Column 2: Kin Info and Kin Description - 27% */}
+          <div className="space-y-6 lg:col-span-3">
             <KinInfo kin={selectedKin} />
             <KinDescription kin={selectedKin} />
           </div>
           
-          {/* Column 3: Oracle View and Oracle Description */}
-          <div className="space-y-6 lg:col-span-1">
+          {/* Column 3: Oracle View and Oracle Description - 30% */}
+          <div className="space-y-6 lg:col-span-4">
             <OracleView
               kin={selectedKin}
               onKinSelect={setSelectedKin}

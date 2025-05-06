@@ -10,6 +10,22 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   const { tone, seal } = getKinComponents(kin);
   const colorClass = getKinColorClass(kin);
   
+  // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
+  const formatKinName = () => {
+    // Extrai apenas o nome base do selo (sem a cor)
+    const baseSealName = seal.name.split(' ')[0];
+    
+    // Cor em português
+    const colorTranslation: Record<string, string> = {
+      'red': 'Vermelho',
+      'white': 'Branco',
+      'blue': 'Azul',
+      'yellow': 'Amarelo'
+    };
+    
+    return `${baseSealName} ${tone.name} ${colorTranslation[seal.color]}`;
+  };
+  
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -24,7 +40,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         
         <div className="text-center">
           <h3 className="text-3xl font-bold mb-2">Kin {kin}</h3>
-          <h3 className="text-2xl">{seal.name} {tone.name}</h3>
+          <h3 className="text-2xl">{formatKinName()}</h3>
           <p className="text-sm text-black mt-2">
             {seal.description} • {tone.description}
           </p>
