@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { calculateKinAccurate } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
@@ -52,6 +53,21 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
     const newDay = day - 1 < 1 ? daysInMonth : day - 1;
     setDay(newDay);
+  };
+  
+  const setToday = () => {
+    const currentDate = new Date();
+    setDay(currentDate.getDate());
+    setMonth(currentDate.getMonth());
+    setYear(currentDate.getFullYear());
+    
+    // Calculate and update the kin for today
+    const calculatedKin = calculateKinAccurate(
+      currentDate.getFullYear(), 
+      currentDate.getMonth() + 1, 
+      currentDate.getDate()
+    );
+    onKinSelect(calculatedKin);
   };
 
   return (
@@ -134,12 +150,21 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           </div>
         </div>
         
-        <Button 
-          type="submit" 
-          className="w-full bg-primary hover:bg-primary/80 mt-3"
-        >
-          Calcular Kin
-        </Button>
+        <div className="flex gap-2 mt-3">
+          <Button 
+            type="submit" 
+            className="flex-1 bg-primary hover:bg-primary/80"
+          >
+            Calcular Kin
+          </Button>
+          <Button 
+            type="button" 
+            onClick={setToday}
+            className="flex-1 bg-tzolkin-red text-white hover:bg-tzolkin-red/80"
+          >
+            Hoje
+          </Button>
+        </div>
       </form>
     </div>
   );

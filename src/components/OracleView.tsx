@@ -30,7 +30,7 @@ const OracleView: React.FC<OracleViewProps> = ({
         >
           <div className="font-bold">Kin {kinNumber}</div>
         </div>
-        <span className="text-xs mt-1">{seal.name}</span>
+        <span className="text-xs mt-1">{tone.name} {seal.name}</span>
       </div>
     );
   };
