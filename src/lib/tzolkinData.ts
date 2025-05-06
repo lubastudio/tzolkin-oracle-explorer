@@ -173,27 +173,71 @@ export const getKinComponents = (kin: number): {
 
 export const calculateOracle = (kin: number) => {
   const { tone, seal } = getKinComponents(kin);
+  const toneNumber = tone.number;
+  
+  // Extract the seal number (1-20)
+  // In the Tzolkin, seals are 1-indexed
   const sealIndex = solarSeals.findIndex(s => s.name === seal.name);
+  const sealNumber = sealIndex + 1; // Convert to 1-indexed
   
-  // Calculate guide (same tone, add 19 to seal)
-  const guideKin = ((sealIndex + 19) % 20) + 1 + (tone.number - 1) * 20;
+  // Calculate analog using the formula: 19 - seal number
+  let analogSealNumber = 19 - sealNumber;
+  if (analogSealNumber < 1) {
+    analogSealNumber += 20; // Exception: if result is less than 1, add 20
+  }
   
-  // Calculate analog (add 5 to seal, same tone)
-  const analogKin = ((sealIndex + 5) % 20) + 1 + (tone.number - 1) * 20;
+  // Calculate hidden (oculto) using the formula: 21 - seal number
+  let hiddenSealNumber = 21 - sealNumber;
+  if (hiddenSealNumber > 20) {
+    hiddenSealNumber -= 20; // Exception: if result is greater than 20, subtract 20
+  }
   
-  // Calculate antipode (opposite tone 14-tone, add 10 to seal)
-  const antipodeTone = 14 - tone.number;
-  const antipodeKin = ((sealIndex + 10) % 20) + 1 + (antipodeTone - 1) * 20;
+  // Calculate antipode using the formula: seal number + 10
+  let antipodeSealNumber = sealNumber + 10;
+  if (antipodeSealNumber > 20) {
+    antipodeSealNumber -= 20; // If result is greater than 20, subtract 20 to stay in the cycle
+  }
   
-  // Calculate hidden (add 11 to seal, opposite tone)
-  const hiddenKin = ((sealIndex + 11) % 20) + 1 + (antipodeTone - 1) * 20;
+  // Calculate guide
+  // For tones 1 (Magnetic), 6 (Rhythmic), and 11 (Spectral), the guide is the kin itself
+  let guideSealNumber;
+  if (toneNumber === 1 || toneNumber === 6 || toneNumber === 11) {
+    return {
+      guide: kin, // The kin itself is the guide
+      analog: calculateKinWithToneAndSeal(toneNumber, analogSealNumber),
+      antipode: calculateKinWithToneAndSeal(toneNumber, antipodeSealNumber),
+      hidden: calculateKinWithToneAndSeal(getOppositeTone(toneNumber), hiddenSealNumber)
+    };
+  } else {
+    // For other tones, we need to calculate the guide
+    // Implementation might be incomplete as per your note
+    guideSealNumber = (sealNumber + 19) % 20;
+    if (guideSealNumber === 0) guideSealNumber = 20;
+    
+    return {
+      guide: calculateKinWithToneAndSeal(toneNumber, guideSealNumber),
+      analog: calculateKinWithToneAndSeal(toneNumber, analogSealNumber),
+      antipode: calculateKinWithToneAndSeal(toneNumber, antipodeSealNumber),
+      hidden: calculateKinWithToneAndSeal(getOppositeTone(toneNumber), hiddenSealNumber)
+    };
+  }
+};
+
+// Helper function to calculate opposite tone (for hidden calculation)
+const getOppositeTone = (toneNumber: number): number => {
+  return 14 - toneNumber;
+};
+
+// Helper function to calculate a kin number based on tone and seal numbers
+const calculateKinWithToneAndSeal = (toneNumber: number, sealNumber: number): number => {
+  // Formula: (tone - 1) * 20 + seal
+  let kin = (toneNumber - 1) * 20 + sealNumber;
   
-  return {
-    guide: guideKin > 0 ? guideKin : guideKin + 260,
-    analog: analogKin > 0 ? analogKin : analogKin + 260,
-    antipode: antipodeKin > 0 ? antipodeKin : antipodeKin + 260,
-    hidden: hiddenKin > 0 ? hiddenKin : hiddenKin + 260
-  };
+  // Ensure it's within the 1-260 range
+  if (kin <= 0) kin += 260;
+  if (kin > 260) kin -= 260;
+  
+  return kin;
 };
 
 // Get color class for a kin
