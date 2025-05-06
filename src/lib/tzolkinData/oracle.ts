@@ -1,6 +1,32 @@
 
 import { getKinComponents } from './calculations';
 import { calculateKinWithToneAndSeal } from './calculations';
+import { solarSeals } from './data';
+
+// Guide sequences for each seal (1-20)
+// Each seal has 5 possible guides in a specific order
+const guideSequences: Record<number, number[]> = {
+  1: [1, 13, 5, 17, 9],    // Dragon
+  2: [2, 14, 6, 18, 10],   // Wind
+  3: [3, 15, 7, 19, 11],   // Night
+  4: [4, 16, 8, 20, 12],   // Seed
+  5: [5, 17, 9, 1, 13],    // Serpent
+  6: [6, 18, 10, 2, 14],   // Worldbridger
+  7: [7, 19, 11, 3, 15],   // Hand
+  8: [8, 20, 12, 4, 16],   // Star
+  9: [9, 1, 13, 5, 17],    // Moon
+  10: [10, 2, 14, 6, 18],  // Dog
+  11: [11, 3, 15, 7, 19],  // Monkey
+  12: [12, 4, 16, 8, 20],  // Human
+  13: [13, 5, 17, 9, 1],   // Skywalker
+  14: [14, 6, 18, 10, 2],  // Wizard
+  15: [15, 7, 19, 11, 3],  // Eagle
+  16: [16, 8, 20, 12, 4],  // Warrior
+  17: [17, 9, 1, 13, 5],   // Earth
+  18: [18, 10, 2, 14, 6],  // Mirror
+  19: [19, 11, 3, 15, 7],  // Storm
+  20: [20, 12, 4, 16, 8],  // Sun
+};
 
 export const calculateOracle = (kin: number) => {
   const { tone, seal } = getKinComponents(kin);
@@ -30,35 +56,25 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber < 1) hiddenToneNumber += 13;
   
   // 4. Calculate guide
-  // Special cases for tones 1, 6, and 11 - guide is the kin itself
-  if (toneNumber === 1 || toneNumber === 6 || toneNumber === 11) {
-    return {
-      guide: kin,
-      analog: calculateKinWithToneAndSeal(analogToneNumber, analogSealNumber),
-      antipode: calculateKinWithToneAndSeal(antipodeToneNumber, antipodeSealNumber),
-      hidden: calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber)
-    };
-  } else {
-    // For other tones, calculate the guide based on color family
-    // Color families: Red (1,5,9,13,17), White (2,6,10,14,18), Blue (3,7,11,15,19), Yellow (4,8,12,16,20)
-    const colorFamily = Math.ceil(sealNumber / 4);
-    
-    // Use the (tone - 1) % 5 pattern to find the guide seal within the same color family
-    let guideSealOffset = (toneNumber - 1) % 5;
-    if (guideSealOffset === 0) guideSealOffset = 5;
-    
-    // Calculate guide seal number based on color family and offset
-    let guideSealNumber = (colorFamily - 1) * 4 + guideSealOffset;
-    if (guideSealNumber > 20) guideSealNumber = guideSealNumber - 20;
-    if (guideSealNumber <= 0) guideSealNumber = guideSealNumber + 20;
-    
-    return {
-      guide: calculateKinWithToneAndSeal(toneNumber, guideSealNumber),
-      analog: calculateKinWithToneAndSeal(analogToneNumber, analogSealNumber),
-      antipode: calculateKinWithToneAndSeal(antipodeToneNumber, antipodeSealNumber),
-      hidden: calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber)
-    };
-  }
-};
+  let guideSealNumber;
 
-import { solarSeals } from './data';
+  // Special cases for tones 1, 6, and 11 - guide is the kin's own seal
+  if (toneNumber === 1 || toneNumber === 6 || toneNumber === 11) {
+    guideSealNumber = sealNumber;
+  } else {
+    // For all other tones, use the guide sequence for the seal
+    // Calculate the index in the sequence based on the tone
+    const sequenceIndex = (toneNumber - 1) % 5;
+    guideSealNumber = guideSequences[sealNumber][sequenceIndex];
+  }
+  
+  // Guide tone is the same as kin tone
+  const guideToneNumber = toneNumber;
+  
+  return {
+    guide: calculateKinWithToneAndSeal(guideToneNumber, guideSealNumber),
+    analog: calculateKinWithToneAndSeal(analogToneNumber, analogSealNumber),
+    antipode: calculateKinWithToneAndSeal(antipodeToneNumber, antipodeSealNumber),
+    hidden: calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber)
+  };
+};
