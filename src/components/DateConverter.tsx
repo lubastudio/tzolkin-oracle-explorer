@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { calculateKinAccurate } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { CalendarDays } from 'lucide-react';
 
 interface DateConverterProps {
   onKinSelect: (kin: number) => void;
@@ -13,6 +14,22 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   const [day, setDay] = useState<number>(today.getDate());
   const [month, setMonth] = useState<number>(today.getMonth()); // January is 0
   const [year, setYear] = useState<number>(today.getFullYear());
+  const [isTodayActive, setIsTodayActive] = useState<boolean>(true);
+  
+  // Check if current selection is today's date
+  const checkIfToday = (d: number, m: number, y: number) => {
+    const currentDate = new Date();
+    return (
+      d === currentDate.getDate() &&
+      m === currentDate.getMonth() &&
+      y === currentDate.getFullYear()
+    );
+  };
+  
+  // Update isTodayActive whenever date changes
+  useEffect(() => {
+    setIsTodayActive(checkIfToday(day, month, year));
+  }, [day, month, year]);
   
   useEffect(() => {
     // Calculate the kin for today when component mounts
@@ -152,17 +169,19 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         
         <div className="flex gap-2 mt-3">
           <Button 
-            type="submit" 
-            className="flex-1 bg-primary hover:bg-primary/80"
-          >
-            Calcular Kin
-          </Button>
-          <Button 
             type="button" 
             onClick={setToday}
-            className="flex-1 bg-tzolkin-red text-white hover:bg-tzolkin-red/80"
+            className={`flex-1 text-black ${isTodayActive ? 'bg-[#eee5d5]' : 'bg-[#f8f6f2]'} hover:bg-[#eee5d5] border-none`}
           >
+            <CalendarDays className="w-4 h-4 mr-1" />
             Hoje
+          </Button>
+          <Button 
+            type="submit" 
+            className="flex-1 bg-primary hover:bg-primary/80"
+            disabled={isTodayActive}
+          >
+            Calcular Kin
           </Button>
         </div>
       </form>
