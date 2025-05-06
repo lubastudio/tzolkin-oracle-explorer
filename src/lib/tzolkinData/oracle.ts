@@ -29,6 +29,7 @@ const guideSequences: Record<number, number[]> = {
 };
 
 export const calculateOracle = (kin: number) => {
+  // First, get the components of the Kin
   const { tone, seal } = getKinComponents(kin);
   const toneNumber = tone.number;
   
@@ -36,8 +37,9 @@ export const calculateOracle = (kin: number) => {
   const sealIndex = solarSeals.findIndex(s => s.name === seal.name);
   const sealNumber = sealIndex + 1;  // Convert from 0-index to 1-index
   
+  // Calculate seal positions for each Oracle position
+  
   // 1. Calculate analog seal (19 - seal number)
-  // CORREÇÃO: Todos os elementos mantêm o mesmo tom do Kin principal
   let analogSealNumber = 19 - sealNumber;
   if (analogSealNumber <= 0) analogSealNumber += 20;
   
@@ -46,12 +48,9 @@ export const calculateOracle = (kin: number) => {
   if (antipodeSealNumber > 20) antipodeSealNumber -= 20;
   
   // 3. Calculate occult (hidden) seal (21 - seal number)
-  let hiddenSealNumber = 21 - sealNumber;
-  // Occult tone (14 - tone number)
-  let hiddenToneNumber = 14 - toneNumber;
-  if (hiddenToneNumber < 1) hiddenToneNumber += 13;
+  const hiddenSealNumber = 21 - sealNumber;
   
-  // 4. Calculate guide
+  // 4. Calculate guide seal based on the specific sequence
   let guideSealNumber;
 
   // Special cases for tones 1, 6, and 11 - guide is the kin's own seal
@@ -60,11 +59,16 @@ export const calculateOracle = (kin: number) => {
   } else {
     // For all other tones, use the guide sequence for the seal
     // Calculate the index in the sequence based on the tone
-    const sequenceIndex = (toneNumber - 1) % 5;
+    const sequenceIndex = Math.floor((toneNumber - 1) % 5);
     guideSealNumber = guideSequences[sealNumber][sequenceIndex];
   }
   
-  // CORREÇÃO: Todos têm o mesmo tom do Kin principal, EXCETO o oculto
+  // Calculate the occult tone (14 - tone number)
+  let hiddenToneNumber = 14 - toneNumber;
+  if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
+  
+  // IMPORTANT: Analog, Antipode and Guide all use the SAME tone as the original Kin
+  // Only the Hidden/Occult Kin uses a different tone
   return {
     guide: calculateKinWithToneAndSeal(toneNumber, guideSealNumber),
     analog: calculateKinWithToneAndSeal(toneNumber, analogSealNumber),
