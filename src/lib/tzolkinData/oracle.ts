@@ -72,32 +72,40 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
-  // Calculate the correct Kin numbers for display
-  const guideKin = calculateKinWithToneAndSeal(toneNumber, guideSealNumber);
-  const analogKin = calculateKinWithToneAndSeal(toneNumber, analogSealNumber);
-  const antipodeKin = calculateKinWithToneAndSeal(toneNumber, antipodeSealNumber);
-  const hiddenKin = calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber);
+  // Use the correct formula to calculate the Kin numbers: (tone - 1) * 20 + seal
+  const guideKin = (toneNumber - 1) * 20 + guideSealNumber;
+  const analogKin = (toneNumber - 1) * 20 + analogSealNumber;
+  const antipodeKin = (toneNumber - 1) * 20 + antipodeSealNumber;
+  const hiddenKin = (hiddenToneNumber - 1) * 20 + hiddenSealNumber;
+  
+  // Normalize to range 1-260 if needed
+  const normalizeKin = (kinNumber: number): number => {
+    let normalized = kinNumber;
+    while (normalized <= 0) normalized += 260;
+    while (normalized > 260) normalized -= 260;
+    return normalized;
+  };
   
   return {
     guide: {
-      kin: guideKin,
-      tone: tone,
-      seal: solarSeals[guideSealIndex]
+      kin: normalizeKin(guideKin),
+      tone: tone,                      // Same as original Kin's tone
+      seal: solarSeals[guideSealIndex] // Guide seal
     },
     analog: {
-      kin: analogKin,
-      tone: tone,
-      seal: solarSeals[analogSealIndex]
+      kin: normalizeKin(analogKin),
+      tone: tone,                      // Same as original Kin's tone 
+      seal: solarSeals[analogSealIndex] // Analog seal
     },
     antipode: {
-      kin: antipodeKin,
-      tone: tone, 
-      seal: solarSeals[antipodeSealIndex]
+      kin: normalizeKin(antipodeKin),
+      tone: tone,                      // Same as original Kin's tone
+      seal: solarSeals[antipodeSealIndex] // Antipode seal  
     },
     hidden: {
-      kin: hiddenKin,
-      tone: galacticTones[hiddenToneIndex],
-      seal: solarSeals[hiddenSealIndex]
+      kin: normalizeKin(hiddenKin),
+      tone: galacticTones[hiddenToneIndex], // Different tone for hidden
+      seal: solarSeals[hiddenSealIndex]     // Hidden seal
     }
   };
 };
