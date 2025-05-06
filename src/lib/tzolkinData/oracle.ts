@@ -37,20 +37,16 @@ export const calculateOracle = (kin: number) => {
   const sealNumber = sealIndex + 1;  // Convert from 0-index to 1-index
   
   // 1. Calculate analog seal (19 - seal number)
+  // CORREÇÃO: Todos os elementos mantêm o mesmo tom do Kin principal
   let analogSealNumber = 19 - sealNumber;
-  if (analogSealNumber < 1) analogSealNumber += 20;
-  // Analog tone is same as kin tone
-  const analogToneNumber = toneNumber;
+  if (analogSealNumber <= 0) analogSealNumber += 20;
   
   // 2. Calculate antipode seal (seal number + 10)
   let antipodeSealNumber = sealNumber + 10;
   if (antipodeSealNumber > 20) antipodeSealNumber -= 20;
-  // Antipode tone is same as kin tone
-  const antipodeToneNumber = toneNumber;
   
   // 3. Calculate occult (hidden) seal (21 - seal number)
   let hiddenSealNumber = 21 - sealNumber;
-  if (hiddenSealNumber < 1) hiddenSealNumber += 20;
   // Occult tone (14 - tone number)
   let hiddenToneNumber = 14 - toneNumber;
   if (hiddenToneNumber < 1) hiddenToneNumber += 13;
@@ -68,13 +64,11 @@ export const calculateOracle = (kin: number) => {
     guideSealNumber = guideSequences[sealNumber][sequenceIndex];
   }
   
-  // Guide tone is the same as kin tone
-  const guideToneNumber = toneNumber;
-  
+  // CORREÇÃO: Todos têm o mesmo tom do Kin principal, EXCETO o oculto
   return {
-    guide: calculateKinWithToneAndSeal(guideToneNumber, guideSealNumber),
-    analog: calculateKinWithToneAndSeal(analogToneNumber, analogSealNumber),
-    antipode: calculateKinWithToneAndSeal(antipodeToneNumber, antipodeSealNumber),
+    guide: calculateKinWithToneAndSeal(toneNumber, guideSealNumber),
+    analog: calculateKinWithToneAndSeal(toneNumber, analogSealNumber),
+    antipode: calculateKinWithToneAndSeal(toneNumber, antipodeSealNumber),
     hidden: calculateKinWithToneAndSeal(hiddenToneNumber, hiddenSealNumber)
   };
 };
