@@ -15,15 +15,31 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
     // Extrai apenas o nome base do selo (sem a cor)
     const baseSealName = seal.name.split(' ')[0];
     
-    // Cor em português
-    const colorTranslation: Record<string, string> = {
-      'red': 'Vermelho',
-      'white': 'Branco',
-      'blue': 'Azul',
-      'yellow': 'Amarelo'
+    // Lista de selos femininos
+    const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
+    const isFeminine = feminineSeals.includes(baseSealName);
+    
+    // Ajusta o adjetivo do tom para o gênero correto
+    let adjustedToneName = tone.name;
+    if (isFeminine) {
+      // Converte adjetivos masculinos para femininos
+      if (tone.name.endsWith('o')) {
+        adjustedToneName = tone.name.slice(0, -1) + 'a';
+      }
+    }
+    
+    // Cor em português com gênero correto
+    const colorTranslation: Record<string, [string, string]> = {
+      'red': ['Vermelho', 'Vermelha'],
+      'white': ['Branco', 'Branca'],
+      'blue': ['Azul', 'Azul'],  // Azul não muda no feminino
+      'yellow': ['Amarelo', 'Amarela']
     };
     
-    return `${baseSealName} ${tone.name} ${colorTranslation[seal.color]}`;
+    const colorAdjective = isFeminine ? colorTranslation[seal.color as keyof typeof colorTranslation][1] : 
+                                     colorTranslation[seal.color as keyof typeof colorTranslation][0];
+    
+    return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
   };
   
   return (

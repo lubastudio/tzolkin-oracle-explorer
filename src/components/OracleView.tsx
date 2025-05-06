@@ -22,15 +22,31 @@ const OracleView: React.FC<OracleViewProps> = ({
     // Extrai apenas o nome base do selo (sem a cor)
     const baseSealName = sealName.split(' ')[0];
     
-    // Cor em português
-    const colorTranslation = {
-      'red': 'Vermelho',
-      'white': 'Branco',
-      'blue': 'Azul',
-      'yellow': 'Amarelo'
+    // Lista de selos femininos
+    const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
+    const isFeminine = feminineSeals.includes(baseSealName);
+    
+    // Ajusta o adjetivo do tom para o gênero correto
+    let adjustedToneName = toneName;
+    if (isFeminine) {
+      // Converte adjetivos masculinos para femininos
+      if (toneName.endsWith('o')) {
+        adjustedToneName = toneName.slice(0, -1) + 'a';
+      }
+    }
+    
+    // Cor em português com gênero correto
+    const colorTranslation: Record<string, [string, string]> = {
+      'red': ['Vermelho', 'Vermelha'],
+      'white': ['Branco', 'Branca'],
+      'blue': ['Azul', 'Azul'],  // Azul não muda no feminino
+      'yellow': ['Amarelo', 'Amarela']
     };
     
-    return `${baseSealName} ${toneName} ${colorTranslation[color as keyof typeof colorTranslation]}`;
+    const colorAdjective = isFeminine ? colorTranslation[color as keyof typeof colorTranslation][1] : 
+                                     colorTranslation[color as keyof typeof colorTranslation][0];
+    
+    return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
   };
   
   const renderOracleItem = (title: string, kinData: {kin: number, tone: any, seal: any}, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
