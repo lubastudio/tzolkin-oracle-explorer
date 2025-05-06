@@ -12,8 +12,7 @@ interface OracleViewProps {
 const OracleView: React.FC<OracleViewProps> = ({ 
   kin,
   onKinSelect, 
-  view, 
-  onViewChange 
+  view
 }) => {
   const oracle = calculateOracle(kin);
   const wave = calculateWave(kin);
@@ -56,26 +55,9 @@ const OracleView: React.FC<OracleViewProps> = ({
   
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-black">
-          {view === 'oracle' ? 'Oráculo do Kin' : 'Onda Encantada'}
-        </h2>
-        
-        <div className="flex gap-2">
-          <button
-            className={`px-3 py-1 rounded ${view === 'oracle' ? 'bg-primary text-white' : 'bg-secondary text-gray-300'}`}
-            onClick={() => onViewChange('oracle')}
-          >
-            Oráculo
-          </button>
-          <button
-            className={`px-3 py-1 rounded ${view === 'wave' ? 'bg-primary text-white' : 'bg-secondary text-gray-300'}`}
-            onClick={() => onViewChange('wave')}
-          >
-            Onda
-          </button>
-        </div>
-      </div>
+      <h2 className="text-xl font-semibold text-black mb-4">
+        {view === 'oracle' ? 'Oráculo do Kin' : 'Onda Encantada'}
+      </h2>
       
       {view === 'oracle' ? (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">

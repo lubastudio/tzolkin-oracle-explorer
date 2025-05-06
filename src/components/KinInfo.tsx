@@ -12,8 +12,6 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
-      <h2 className="section-title">Informações do Kin</h2>
-      
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex flex-col items-center">
           <span className="font-medium text-black mb-1">Selo</span>

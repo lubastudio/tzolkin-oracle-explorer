@@ -15,7 +15,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <main className="container mx-auto py-6 px-4 space-y-6">
+        {/* Section 1: 3-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Column 1: Date and Matrix */}
           <div className="lg:col-span-1 space-y-6">
             <DateConverter onKinSelect={setSelectedKin} />
             <TzolkinMatrix
@@ -24,28 +26,40 @@ const Index = () => {
             />
           </div>
           
+          {/* Column 2: Kin Info and Kin Description */}
           <div className="space-y-6 lg:col-span-1">
             <KinInfo kin={selectedKin} />
+            <KinDescription kin={selectedKin} />
+          </div>
+          
+          {/* Column 3: Oracle View and Oracle Description */}
+          <div className="space-y-6 lg:col-span-1">
             <OracleView
               kin={selectedKin}
               onKinSelect={setSelectedKin}
-              view={view}
-              onViewChange={setView}
+              view="oracle"
+              onViewChange={() => {}} // Disabled function since we'll remove the buttons
             />
-          </div>
-          
-          <div className="space-y-6 lg:col-span-1 flex flex-col">
-            <div className="min-h-fit">
-              <KinDescription kin={selectedKin} />
-            </div>
-            <div className="min-h-fit">
-              <OracleDescription kin={selectedKin} />
-            </div>
+            <OracleDescription kin={selectedKin} />
           </div>
         </div>
         
-        <div className="mt-6">
-          <WaveDescription kin={selectedKin} />
+        {/* Section 2: 2-column layout */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Column 1: Wave View (from Oracle View) */}
+          <div className="space-y-6">
+            <OracleView
+              kin={selectedKin}
+              onKinSelect={setSelectedKin}
+              view="wave"
+              onViewChange={() => {}} // Disabled function since we'll remove the buttons
+            />
+          </div>
+          
+          {/* Column 2: Wave Description */}
+          <div className="space-y-6">
+            <WaveDescription kin={selectedKin} />
+          </div>
         </div>
       </main>
       

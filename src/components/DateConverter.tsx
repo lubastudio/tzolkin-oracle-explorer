@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { calculateKinAccurate } from '@/lib/tzolkinData';
 import { Button } from '@/components/ui/button';
@@ -57,9 +56,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
 
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
-      <h2 className="section-title">Conversão de Data</h2>
-      
-      <form onSubmit={handleDateSubmit} className="mt-3">
+      <form onSubmit={handleDateSubmit} className="mt-1">
         <div className="grid grid-cols-3 gap-3">
           <div>
             <label className="block text-sm text-black mb-1">Dia</label>
@@ -73,7 +70,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
                 className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               />
-              <div className="absolute right-1 top-0 bottom-0 hidden group-hover:flex flex-col justify-center">
+              <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
                 <button 
                   type="button" 
                   onClick={incrementDay}
@@ -121,7 +118,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
                 className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
                 required
               />
-              <div className="absolute right-1 top-0 bottom-0 hidden group-hover:flex flex-col justify-center">
+              <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
                 <button 
                   type="button" 
                   onClick={incrementYear}
