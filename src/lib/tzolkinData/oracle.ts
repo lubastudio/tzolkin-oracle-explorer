@@ -1,6 +1,5 @@
 
 import { getKinComponents } from './calculations';
-import { calculateKinWithToneAndSeal } from './calculations';
 import { solarSeals, galacticTones } from './data';
 
 // Guide sequences for each seal (1-20)
@@ -71,46 +70,44 @@ export const calculateOracle = (kin: number) => {
   let hiddenToneNumber = 14 - toneNumber;
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
-  
-  // IMPORTANT: For each oracle position, we must calculate the true Kin number
-  // using the correct formula: (tone - 1) * 20 + seal
-  
-  // Calculate guide Kin number (same tone as original, but different seal)
-  const guideKinNumber = calculateCorrectKin(toneNumber, guideSealNumber);
-  
-  // Calculate analog Kin number (same tone as original, but different seal)
-  const analogKinNumber = calculateCorrectKin(toneNumber, analogSealNumber);
-  
-  // Calculate antipode Kin number (same tone as original, but different seal)
-  const antipodeKinNumber = calculateCorrectKin(toneNumber, antipodeSealNumber);
-  
-  // Calculate hidden Kin number (different tone and different seal)
-  const hiddenKinNumber = calculateCorrectKin(hiddenToneNumber, hiddenSealNumber);
+
+  // Calculate the correct Kin numbers using the formula: (tone - 1) * 20 + seal
+  const guideKin = ((toneNumber - 1) * 20) + guideSealNumber;
+  const analogKin = ((toneNumber - 1) * 20) + analogSealNumber;
+  const antipodeKin = ((toneNumber - 1) * 20) + antipodeSealNumber;
+  const hiddenKin = ((hiddenToneNumber - 1) * 20) + hiddenSealNumber;
+
+  // Normalize to range 1-260
+  const normalizeKin = (kinNumber: number): number => {
+    while (kinNumber > 260) kinNumber -= 260;
+    while (kinNumber <= 0) kinNumber += 260;
+    return kinNumber;
+  };
   
   return {
     guide: {
-      kin: guideKinNumber,
+      kin: normalizeKin(guideKin),
       tone: tone,
       seal: solarSeals[guideSealIndex],
       toneNumber: toneNumber,
       sealNumber: guideSealNumber
     },
     analog: {
-      kin: analogKinNumber,
+      kin: normalizeKin(analogKin),
       tone: tone,
       seal: solarSeals[analogSealIndex],
       toneNumber: toneNumber,
       sealNumber: analogSealNumber
     },
     antipode: {
-      kin: antipodeKinNumber,
+      kin: normalizeKin(antipodeKin),
       tone: tone,
       seal: solarSeals[antipodeSealIndex],
       toneNumber: toneNumber, 
       sealNumber: antipodeSealNumber
     },
     hidden: {
-      kin: hiddenKinNumber,
+      kin: normalizeKin(hiddenKin),
       tone: galacticTones[hiddenToneIndex],
       seal: solarSeals[hiddenSealIndex],
       toneNumber: hiddenToneNumber,
@@ -119,13 +116,4 @@ export const calculateOracle = (kin: number) => {
   };
 };
 
-// Helper function to calculate the correct Kin number using the formula (tone - 1) * 20 + seal
-function calculateCorrectKin(toneNumber: number, sealNumber: number): number {
-  let result = (toneNumber - 1) * 20 + sealNumber;
-  
-  // Normalize to range 1-260
-  while (result > 260) result -= 260;
-  while (result <= 0) result += 260;
-  
-  return result;
-}
+// Helper function isn't needed anymore as we calculate the Kin directly in the main function

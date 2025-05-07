@@ -54,7 +54,7 @@ const OracleView: React.FC<OracleViewProps> = ({
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
-    // Use o número de Kin calculado diretamente da função de oráculo
+    // Usar diretamente o número de Kin calculado pela função calculateOracle
     const displayKin = kinData.kin;
     
     return (
