@@ -39,17 +39,17 @@ export const calculateOracle = (kin: number) => {
   
   // Calculate seal positions for each Oracle position
   
-  // 1. Calculate analog seal (19 - seal number)
+  // 1. Calculate analog seal (analog = 19 - seal number)
   let analogSealNumber = 19 - sealNumber;
   if (analogSealNumber <= 0) analogSealNumber += 20;
   const analogSealIndex = analogSealNumber - 1; // Convert to 0-index for array access
   
-  // 2. Calculate antipode seal (seal number + 10)
+  // 2. Calculate antipode seal (antipode = seal number + 10)
   let antipodeSealNumber = sealNumber + 10;
   if (antipodeSealNumber > 20) antipodeSealNumber -= 20;
   const antipodeSealIndex = antipodeSealNumber - 1; // Convert to 0-index for array access
   
-  // 3. Calculate occult (hidden) seal (21 - seal number)
+  // 3. Calculate occult (hidden) seal (hidden = 21 - seal number)
   const hiddenSealNumber = 21 - sealNumber;
   const hiddenSealIndex = hiddenSealNumber - 1; // Convert to 0-index for array access
   
@@ -72,45 +72,60 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
-  // CRITICAL FIX: Properly calculate the Kin numbers using the formula: (tone - 1) * 20 + seal
-  // This is the key fix - we need to apply the formula with the correct values
+  // IMPORTANT: For each oracle position, we must calculate the true Kin number
+  // using the correct formula: (tone - 1) * 20 + seal
+  
+  // Calculate guide Kin number (same tone as original, but different seal)
+  const guideKinNumber = calculateCorrectKin(toneNumber, guideSealNumber);
+  
+  // Calculate analog Kin number (same tone as original, but different seal)
+  const analogKinNumber = calculateCorrectKin(toneNumber, analogSealNumber);
+  
+  // Calculate antipode Kin number (same tone as original, but different seal)
+  const antipodeKinNumber = calculateCorrectKin(toneNumber, antipodeSealNumber);
+  
+  // Calculate hidden Kin number (different tone and different seal)
+  const hiddenKinNumber = calculateCorrectKin(hiddenToneNumber, hiddenSealNumber);
   
   return {
     guide: {
-      // Calculate the guide kin directly: (tone - 1) * 20 + guide seal
-      kin: ((toneNumber - 1) * 20 + guideSealNumber + 260) % 260 || 260,
+      kin: guideKinNumber,
       tone: tone,
-      seal: solarSeals[guideSealIndex] 
+      seal: solarSeals[guideSealIndex],
+      toneNumber: toneNumber,
+      sealNumber: guideSealNumber
     },
     analog: {
-      // Calculate the analog kin directly: (tone - 1) * 20 + analog seal
-      kin: ((toneNumber - 1) * 20 + analogSealNumber + 260) % 260 || 260,
+      kin: analogKinNumber,
       tone: tone,
-      seal: solarSeals[analogSealIndex]
+      seal: solarSeals[analogSealIndex],
+      toneNumber: toneNumber,
+      sealNumber: analogSealNumber
     },
     antipode: {
-      // Calculate the antipode kin directly: (tone - 1) * 20 + antipode seal
-      kin: ((toneNumber - 1) * 20 + antipodeSealNumber + 260) % 260 || 260,
+      kin: antipodeKinNumber,
       tone: tone,
-      seal: solarSeals[antipodeSealIndex]
+      seal: solarSeals[antipodeSealIndex],
+      toneNumber: toneNumber, 
+      sealNumber: antipodeSealNumber
     },
     hidden: {
-      // Calculate the hidden kin directly: (hidden tone - 1) * 20 + hidden seal
-      kin: ((hiddenToneNumber - 1) * 20 + hiddenSealNumber + 260) % 260 || 260,
+      kin: hiddenKinNumber,
       tone: galacticTones[hiddenToneIndex],
-      seal: solarSeals[hiddenSealIndex]
+      seal: solarSeals[hiddenSealIndex],
+      toneNumber: hiddenToneNumber,
+      sealNumber: hiddenSealNumber
     }
   };
 };
 
-// Helper function to calculate Kin number using the formula: (tone - 1) * 20 + seal
-// Also normalizes the result to be within 1-260 range
-const calculateKinNumber = (toneNumber: number, sealNumber: number): number => {
-  let kinNumber = (toneNumber - 1) * 20 + sealNumber;
+// Helper function to calculate the correct Kin number using the formula (tone - 1) * 20 + seal
+function calculateCorrectKin(toneNumber: number, sealNumber: number): number {
+  let result = (toneNumber - 1) * 20 + sealNumber;
   
   // Normalize to range 1-260
-  while (kinNumber <= 0) kinNumber += 260;
-  while (kinNumber > 260) kinNumber -= 260;
+  while (result > 260) result -= 260;
+  while (result <= 0) result += 260;
   
-  return kinNumber;
-};
+  return result;
+}

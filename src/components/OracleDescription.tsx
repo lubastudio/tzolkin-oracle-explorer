@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { getKinComponents, calculateOracle } from '@/lib/tzolkinData';
+import { solarSeals } from '@/lib/tzolkinData/data';
 
 interface OracleDescriptionProps {
   kin: number;

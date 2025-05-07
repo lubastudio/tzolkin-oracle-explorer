@@ -49,11 +49,11 @@ const OracleView: React.FC<OracleViewProps> = ({
     return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
   };
   
-  const renderOracleItem = (title: string, kinData: {kin: number, tone: any, seal: any}, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
+  const renderOracleItem = (title: string, kinData: {kin: number, tone: any, seal: any, toneNumber: number, sealNumber: number}, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
-    // Use the properly calculated kin number directly from the oracle function
+    // Use o número de Kin calculado diretamente da função de oráculo
     const displayKin = kinData.kin;
     
     return (
@@ -100,7 +100,13 @@ const OracleView: React.FC<OracleViewProps> = ({
         <div className="grid grid-cols-3 grid-rows-3 gap-3 place-items-center">
           {renderOracleItem('Guia', oracle.guide, 'top')}
           {renderOracleItem('Antipoda', oracle.antipode, 'left')}
-          {renderOracleItem('Kin', {kin, tone: getKinComponents(kin).tone, seal: getKinComponents(kin).seal}, 'center')}
+          {renderOracleItem('Kin', {
+            kin, 
+            tone: getKinComponents(kin).tone, 
+            seal: getKinComponents(kin).seal,
+            toneNumber: getKinComponents(kin).tone.number,
+            sealNumber: solarSeals.findIndex(s => s.name === getKinComponents(kin).seal.name) + 1
+          }, 'center')}
           {renderOracleItem('Análogo', oracle.analog, 'right')}
           {renderOracleItem('Oculto', oracle.hidden, 'bottom')}
         </div>
