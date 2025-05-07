@@ -73,39 +73,44 @@ export const calculateOracle = (kin: number) => {
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
   // Use the correct formula to calculate the Kin numbers: (tone - 1) * 20 + seal
-  const guideKin = (toneNumber - 1) * 20 + guideSealNumber;
-  const analogKin = (toneNumber - 1) * 20 + analogSealNumber;
-  const antipodeKin = (toneNumber - 1) * 20 + antipodeSealNumber;
-  const hiddenKin = (hiddenToneNumber - 1) * 20 + hiddenSealNumber;
-  
-  // Normalize to range 1-260 if needed
-  const normalizeKin = (kinNumber: number): number => {
-    let normalized = kinNumber;
-    while (normalized <= 0) normalized += 260;
-    while (normalized > 260) normalized -= 260;
-    return normalized;
-  };
+  // This is the critical fix - properly calculating Kin numbers
+  const guideKin = calculateKinNumber(toneNumber, guideSealNumber);
+  const analogKin = calculateKinNumber(toneNumber, analogSealNumber);
+  const antipodeKin = calculateKinNumber(toneNumber, antipodeSealNumber);
+  const hiddenKin = calculateKinNumber(hiddenToneNumber, hiddenSealNumber);
   
   return {
     guide: {
-      kin: normalizeKin(guideKin),
+      kin: guideKin,
       tone: tone,                      // Same as original Kin's tone
       seal: solarSeals[guideSealIndex] // Guide seal
     },
     analog: {
-      kin: normalizeKin(analogKin),
+      kin: analogKin,
       tone: tone,                      // Same as original Kin's tone 
       seal: solarSeals[analogSealIndex] // Analog seal
     },
     antipode: {
-      kin: normalizeKin(antipodeKin),
+      kin: antipodeKin,
       tone: tone,                      // Same as original Kin's tone
       seal: solarSeals[antipodeSealIndex] // Antipode seal  
     },
     hidden: {
-      kin: normalizeKin(hiddenKin),
+      kin: hiddenKin,
       tone: galacticTones[hiddenToneIndex], // Different tone for hidden
       seal: solarSeals[hiddenSealIndex]     // Hidden seal
     }
   };
+};
+
+// Helper function to calculate Kin number using the formula: (tone - 1) * 20 + seal
+// Also normalizes the result to be within 1-260 range
+const calculateKinNumber = (toneNumber: number, sealNumber: number): number => {
+  let kinNumber = (toneNumber - 1) * 20 + sealNumber;
+  
+  // Normalize to range 1-260
+  while (kinNumber <= 0) kinNumber += 260;
+  while (kinNumber > 260) kinNumber -= 260;
+  
+  return kinNumber;
 };
