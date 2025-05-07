@@ -18,6 +18,8 @@ const OracleView: React.FC<OracleViewProps> = ({
   const oracle = calculateOracle(kin);
   const wave = calculateWave(kin);
   
+  console.log('Oracle raw:', oracle);
+  
   // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
   const formatKinName = (sealName: string, toneName: string, color: string) => {
     // Extrai apenas o nome base do selo (sem a cor)
@@ -50,7 +52,13 @@ const OracleView: React.FC<OracleViewProps> = ({
     return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
   };
   
-  const renderOracleItem = (title: string, kinData: {kin: number, tone: any, seal: any, toneNumber: number, sealNumber: number}, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
+  const renderOracleItem = (title: string, kinData: {
+    kin: number, 
+    seal: any, 
+    tone: any, 
+    toneNumber: number, 
+    sealNumber: number
+  }, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
