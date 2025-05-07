@@ -54,17 +54,14 @@ const OracleView: React.FC<OracleViewProps> = ({
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
-    // Usar diretamente o número de Kin calculado pela função calculateOracle
-    const displayKin = kinData.kin;
-    
     return (
       <div className={`oracle-item flex flex-col items-center ${position === 'center' ? 'col-start-2 col-end-3 row-start-2 row-end-3' : ''} ${position === 'top' ? 'col-start-2 col-end-3 row-start-1 row-end-2' : ''} ${position === 'right' ? 'col-start-3 col-end-4 row-start-2 row-end-3' : ''} ${position === 'bottom' ? 'col-start-2 col-end-3 row-start-3 row-end-4' : ''} ${position === 'left' ? 'col-start-1 col-end-2 row-start-2 row-end-3' : ''}`}>
         <span className="text-sm font-medium mb-1">{title}</span>
         <div 
           className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
-          onClick={() => onKinSelect(displayKin)}
+          onClick={() => onKinSelect(kinData.kin)}
         >
-          <div className="font-bold">Kin {displayKin}</div>
+          <div className="font-bold">Kin {kinData.kin}</div>
         </div>
         <span className="text-xs mt-1">{kinName}</span>
       </div>
