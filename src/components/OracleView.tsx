@@ -15,10 +15,17 @@ const OracleView: React.FC<OracleViewProps> = ({
   onKinSelect, 
   view
 }) => {
-  const oracle = calculateOracle(kin);
+  // Extraímos diretamente os valores do oracle para garantir consistência
+  const { guide, analog, antipode, hidden } = calculateOracle(kin);
   const wave = calculateWave(kin);
   
-  console.log('Oracle raw:', oracle);
+  // Logs detalhados para depuração
+  console.log('Oracle raw:', { guide, analog, antipode, hidden });
+  console.log('ORACLE DEBUG:');
+  console.log('Guia:', guide);
+  console.log('Análogo:', analog);
+  console.log('Antípoda:', antipode);
+  console.log('Oculto:', hidden);
   
   // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
   const formatKinName = (sealName: string, toneName: string, color: string) => {
@@ -104,8 +111,9 @@ const OracleView: React.FC<OracleViewProps> = ({
       
       {view === 'oracle' ? (
         <div className="grid grid-cols-3 grid-rows-3 gap-3 place-items-center">
-          {renderOracleItem('Guia', oracle.guide, 'top')}
-          {renderOracleItem('Antipoda', oracle.antipode, 'left')}
+          {/* Agora todos os itens do Oracle vêm diretamente da desestruturação do calculateOracle */}
+          {renderOracleItem('Guia', guide, 'top')}
+          {renderOracleItem('Antípoda', antipode, 'left')}
           {renderOracleItem('Kin', {
             kin, 
             tone: getKinComponents(kin).tone, 
@@ -113,8 +121,8 @@ const OracleView: React.FC<OracleViewProps> = ({
             toneNumber: getKinComponents(kin).tone.number,
             sealNumber: solarSeals.findIndex(s => s.name === getKinComponents(kin).seal.name) + 1
           }, 'center')}
-          {renderOracleItem('Análogo', oracle.analog, 'right')}
-          {renderOracleItem('Oculto', oracle.hidden, 'bottom')}
+          {renderOracleItem('Análogo', analog, 'right')}
+          {renderOracleItem('Oculto', hidden, 'bottom')}
         </div>
       ) : (
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-13 gap-1 p-2">

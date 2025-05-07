@@ -8,10 +8,10 @@ interface OracleDescriptionProps {
 }
 
 const OracleDescription: React.FC<OracleDescriptionProps> = ({ kin }) => {
-  const oracle = calculateOracle(kin);
+  const { guide, analog, antipode, hidden } = calculateOracle(kin);
   const { tone, seal } = getKinComponents(kin);
   
-  console.log('Oracle in description:', oracle);
+  console.log('Oracle in description:', { guide, analog, antipode, hidden });
   
   // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
   const formatKinName = (sealName: string, toneName: string, color: string) => {
@@ -50,22 +50,22 @@ const OracleDescription: React.FC<OracleDescriptionProps> = ({ kin }) => {
       <h2 className="section-title">Significado do Oráculo</h2>
       <div className="text-black text-sm space-y-3">
         <p>
-          <span className="font-semibold">Guia (Kin {oracle.guide.kin}):</span> {formatKinName(oracle.guide.seal.name, oracle.guide.tone.name, oracle.guide.seal.color)} - 
+          <span className="font-semibold">Guia (Kin {guide.kin}):</span> {formatKinName(guide.seal.name, guide.tone.name, guide.seal.color)} - 
           Representa a energia que o guia no caminho, oferecendo direção e propósito.
         </p>
         
         <p>
-          <span className="font-semibold">Análogo (Kin {oracle.analog.kin}):</span> {formatKinName(oracle.analog.seal.name, oracle.analog.tone.name, oracle.analog.seal.color)} - 
+          <span className="font-semibold">Análogo (Kin {analog.kin}):</span> {formatKinName(analog.seal.name, analog.tone.name, analog.seal.color)} - 
           Energia de apoio e suporte que reforça as qualidades do seu Kin.
         </p>
         
         <p>
-          <span className="font-semibold">Antípoda (Kin {oracle.antipode.kin}):</span> {formatKinName(oracle.antipode.seal.name, oracle.antipode.tone.name, oracle.antipode.seal.color)} - 
+          <span className="font-semibold">Antípoda (Kin {antipode.kin}):</span> {formatKinName(antipode.seal.name, antipode.tone.name, antipode.seal.color)} - 
           Energia de desafio e equilíbrio que oferece oportunidade de integração.
         </p>
         
         <p>
-          <span className="font-semibold">Oculto (Kin {oracle.hidden.kin}):</span> {formatKinName(oracle.hidden.seal.name, oracle.hidden.tone.name, oracle.hidden.seal.color)} - 
+          <span className="font-semibold">Oculto (Kin {hidden.kin}):</span> {formatKinName(hidden.seal.name, hidden.tone.name, hidden.seal.color)} - 
           Representa o potencial inconsciente e poder oculto dentro de você.
         </p>
       </div>
