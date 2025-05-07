@@ -72,31 +72,31 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
-  // Use the correct formula to calculate the Kin numbers: (tone - 1) * 20 + seal
-  // This is the critical fix - properly calculating Kin numbers
-  const guideKin = calculateKinNumber(toneNumber, guideSealNumber);
-  const analogKin = calculateKinNumber(toneNumber, analogSealNumber);
-  const antipodeKin = calculateKinNumber(toneNumber, antipodeSealNumber);
-  const hiddenKin = calculateKinNumber(hiddenToneNumber, hiddenSealNumber);
+  // Calculate the Kin numbers directly using the formula: (tone - 1) * 20 + seal
+  // CRITICAL FIX: We need to use the correct seal and tone numbers for each position
+  const directGuideKin = calculateKinNumber(toneNumber, guideSealNumber);
+  const directAnalogKin = calculateKinNumber(toneNumber, analogSealNumber);
+  const directAntipodeKin = calculateKinNumber(toneNumber, antipodeSealNumber);
+  const directHiddenKin = calculateKinNumber(hiddenToneNumber, hiddenSealNumber);
   
   return {
     guide: {
-      kin: guideKin,
+      kin: directGuideKin,
       tone: tone,                      // Same as original Kin's tone
       seal: solarSeals[guideSealIndex] // Guide seal
     },
     analog: {
-      kin: analogKin,
+      kin: directAnalogKin,
       tone: tone,                      // Same as original Kin's tone 
       seal: solarSeals[analogSealIndex] // Analog seal
     },
     antipode: {
-      kin: antipodeKin,
+      kin: directAntipodeKin,
       tone: tone,                      // Same as original Kin's tone
       seal: solarSeals[antipodeSealIndex] // Antipode seal  
     },
     hidden: {
-      kin: hiddenKin,
+      kin: directHiddenKin,
       tone: galacticTones[hiddenToneIndex], // Different tone for hidden
       seal: solarSeals[hiddenSealIndex]     // Hidden seal
     }
