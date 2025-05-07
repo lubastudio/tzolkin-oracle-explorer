@@ -89,101 +89,103 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
 
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
-      <form onSubmit={handleDateSubmit} className="mt-1">
-        <div className="grid grid-cols-3 gap-3">
-          <div>
-            <label className="block text-sm text-black mb-1">Dia</label>
-            <div className="group relative">
-              <Input
-                type="number"
-                min="1"
-                max="31"
-                value={day}
-                onChange={(e) => setDay(parseInt(e.target.value))}
-                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
-                required
-              />
-              <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
-                <button 
-                  type="button" 
-                  onClick={incrementDay}
-                  className="text-xs text-black hover:bg-gray-100 px-1"
-                >▲</button>
-                <button 
-                  type="button" 
-                  onClick={decrementDay}
-                  className="text-xs text-black hover:bg-gray-100 px-1"
-                >▼</button>
-              </div>
-            </div>
-          </div>
-          
-          <div>
-            <label className="block text-sm text-black mb-1">Mês</label>
-            <select
-              value={month}
-              onChange={(e) => setMonth(parseInt(e.target.value))}
-              className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300"
+      <form onSubmit={handleDateSubmit} className="flex flex-col gap-3">
+        {/* Today button - now at the top */}
+        <Button 
+          type="button" 
+          onClick={setToday}
+          className={`w-full text-black ${isTodayActive ? 'bg-[#eee5d5]' : 'bg-[#f8f6f2]'} hover:bg-[#eee5d5] border-none`}
+        >
+          <CalendarDays className="w-4 h-4 mr-1" />
+          Hoje
+        </Button>
+        
+        {/* Day input */}
+        <div>
+          <label className="block text-sm text-black mb-1">Dia</label>
+          <div className="group relative">
+            <Input
+              type="number"
+              min="1"
+              max="31"
+              value={day}
+              onChange={(e) => setDay(parseInt(e.target.value))}
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
               required
-            >
-              <option value="0">Janeiro</option>
-              <option value="1">Fevereiro</option>
-              <option value="2">Março</option>
-              <option value="3">Abril</option>
-              <option value="4">Maio</option>
-              <option value="5">Junho</option>
-              <option value="6">Julho</option>
-              <option value="7">Agosto</option>
-              <option value="8">Setembro</option>
-              <option value="9">Outubro</option>
-              <option value="10">Novembro</option>
-              <option value="11">Dezembro</option>
-            </select>
-          </div>
-          
-          <div>
-            <label className="block text-sm text-black mb-1">Ano</label>
-            <div className="group relative">
-              <Input
-                type="number"
-                value={year}
-                onChange={handleYearChange}
-                className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
-                required
-              />
-              <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
-                <button 
-                  type="button" 
-                  onClick={incrementYear}
-                  className="text-xs text-black hover:bg-gray-100 px-1"
-                >▲</button>
-                <button 
-                  type="button" 
-                  onClick={decrementYear}
-                  className="text-xs text-black hover:bg-gray-100 px-1"
-                >▼</button>
-              </div>
+            />
+            <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
+              <button 
+                type="button" 
+                onClick={incrementDay}
+                className="text-xs text-black hover:bg-gray-100 px-1"
+              >▲</button>
+              <button 
+                type="button" 
+                onClick={decrementDay}
+                className="text-xs text-black hover:bg-gray-100 px-1"
+              >▼</button>
             </div>
           </div>
         </div>
         
-        <div className="flex gap-2 mt-3">
-          <Button 
-            type="button" 
-            onClick={setToday}
-            className={`flex-1 text-black ${isTodayActive ? 'bg-[#eee5d5]' : 'bg-[#f8f6f2]'} hover:bg-[#eee5d5] border-none`}
+        {/* Month input */}
+        <div>
+          <label className="block text-sm text-black mb-1">Mês</label>
+          <select
+            value={month}
+            onChange={(e) => setMonth(parseInt(e.target.value))}
+            className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300"
+            required
           >
-            <CalendarDays className="w-4 h-4 mr-1" />
-            Hoje
-          </Button>
-          <Button 
-            type="submit" 
-            className="flex-1 bg-primary hover:bg-primary/80"
-            disabled={isTodayActive}
-          >
-            Calcular Kin
-          </Button>
+            <option value="0">Janeiro</option>
+            <option value="1">Fevereiro</option>
+            <option value="2">Março</option>
+            <option value="3">Abril</option>
+            <option value="4">Maio</option>
+            <option value="5">Junho</option>
+            <option value="6">Julho</option>
+            <option value="7">Agosto</option>
+            <option value="8">Setembro</option>
+            <option value="9">Outubro</option>
+            <option value="10">Novembro</option>
+            <option value="11">Dezembro</option>
+          </select>
         </div>
+        
+        {/* Year input */}
+        <div>
+          <label className="block text-sm text-black mb-1">Ano</label>
+          <div className="group relative">
+            <Input
+              type="number"
+              value={year}
+              onChange={handleYearChange}
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
+              required
+            />
+            <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
+              <button 
+                type="button" 
+                onClick={incrementYear}
+                className="text-xs text-black hover:bg-gray-100 px-1"
+              >▲</button>
+              <button 
+                type="button" 
+                onClick={decrementYear}
+                className="text-xs text-black hover:bg-gray-100 px-1"
+              >▼</button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Calculate Kin button - now at the bottom */}
+        <Button 
+          type="submit" 
+          className="w-full bg-primary hover:bg-primary/80 mt-2"
+          disabled={isTodayActive}
+        >
+          Calcular Kin
+        </Button>
       </form>
     </div>
   );
