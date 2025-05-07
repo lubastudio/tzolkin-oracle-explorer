@@ -72,33 +72,33 @@ export const calculateOracle = (kin: number) => {
   if (hiddenToneNumber <= 0) hiddenToneNumber += 13;
   const hiddenToneIndex = hiddenToneNumber - 1; // Convert to 0-index for array access
   
-  // Calculate the Kin numbers directly using the formula: (tone - 1) * 20 + seal
-  // CRITICAL FIX: We need to use the correct seal and tone numbers for each position
-  const directGuideKin = calculateKinNumber(toneNumber, guideSealNumber);
-  const directAnalogKin = calculateKinNumber(toneNumber, analogSealNumber);
-  const directAntipodeKin = calculateKinNumber(toneNumber, antipodeSealNumber);
-  const directHiddenKin = calculateKinNumber(hiddenToneNumber, hiddenSealNumber);
+  // CRITICAL FIX: Properly calculate the Kin numbers using the formula: (tone - 1) * 20 + seal
+  // This is the key fix - we need to apply the formula with the correct values
   
   return {
     guide: {
-      kin: directGuideKin,
-      tone: tone,                      // Same as original Kin's tone
-      seal: solarSeals[guideSealIndex] // Guide seal
+      // Calculate the guide kin directly: (tone - 1) * 20 + guide seal
+      kin: ((toneNumber - 1) * 20 + guideSealNumber + 260) % 260 || 260,
+      tone: tone,
+      seal: solarSeals[guideSealIndex] 
     },
     analog: {
-      kin: directAnalogKin,
-      tone: tone,                      // Same as original Kin's tone 
-      seal: solarSeals[analogSealIndex] // Analog seal
+      // Calculate the analog kin directly: (tone - 1) * 20 + analog seal
+      kin: ((toneNumber - 1) * 20 + analogSealNumber + 260) % 260 || 260,
+      tone: tone,
+      seal: solarSeals[analogSealIndex]
     },
     antipode: {
-      kin: directAntipodeKin,
-      tone: tone,                      // Same as original Kin's tone
-      seal: solarSeals[antipodeSealIndex] // Antipode seal  
+      // Calculate the antipode kin directly: (tone - 1) * 20 + antipode seal
+      kin: ((toneNumber - 1) * 20 + antipodeSealNumber + 260) % 260 || 260,
+      tone: tone,
+      seal: solarSeals[antipodeSealIndex]
     },
     hidden: {
-      kin: directHiddenKin,
-      tone: galacticTones[hiddenToneIndex], // Different tone for hidden
-      seal: solarSeals[hiddenSealIndex]     // Hidden seal
+      // Calculate the hidden kin directly: (hidden tone - 1) * 20 + hidden seal
+      kin: ((hiddenToneNumber - 1) * 20 + hiddenSealNumber + 260) % 260 || 260,
+      tone: galacticTones[hiddenToneIndex],
+      seal: solarSeals[hiddenSealIndex]
     }
   };
 };
