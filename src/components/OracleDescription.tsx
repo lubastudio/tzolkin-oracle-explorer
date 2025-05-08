@@ -1,15 +1,14 @@
 
 import React from 'react';
 import { getKinComponents, calculateOracle } from '@/lib/tzolkinData';
-import { solarSeals } from '@/lib/tzolkinData/data';
 
 interface OracleDescriptionProps {
   kin: number;
 }
 
 const OracleDescription: React.FC<OracleDescriptionProps> = ({ kin }) => {
+  // Calculate oracle data directly for each render
   const { guide, analog, antipode, hidden } = calculateOracle(kin);
-  const { tone, seal } = getKinComponents(kin);
   
   console.log('Oracle in description:', { guide, analog, antipode, hidden });
   

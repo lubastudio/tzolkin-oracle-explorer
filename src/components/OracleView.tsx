@@ -15,12 +15,11 @@ const OracleView: React.FC<OracleViewProps> = ({
   onKinSelect, 
   view
 }) => {
-  // Extraímos diretamente os valores do oracle para garantir consistência
+  // Calculate the oracle data directly - guaranteed to be fresh each render
   const { guide, analog, antipode, hidden } = calculateOracle(kin);
   const wave = calculateWave(kin);
   
-  // Logs detalhados para depuração
-  console.log('Oracle raw:', { guide, analog, antipode, hidden });
+  // Debug logs for verification
   console.log('ORACLE DEBUG:');
   console.log('Guia:', guide);
   console.log('Análogo:', analog);
@@ -66,7 +65,7 @@ const OracleView: React.FC<OracleViewProps> = ({
     toneNumber: number, 
     sealNumber: number
   }, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
-    // Importante: usar o kinData.kin diretamente do objeto de dados
+    // Use the kin directly from the calculation result
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
@@ -114,7 +113,7 @@ const OracleView: React.FC<OracleViewProps> = ({
         <div className="grid grid-cols-3 grid-rows-3 gap-3 place-items-center">
           {renderOracleItem('Guia', guide, 'top')}
           {renderOracleItem('Antípoda', antipode, 'left')}
-          {/* Para o Kin central, usamos diretamente os dados calculados em vez de construir manualmente */}
+          {/* O Kin central é a base do oráculo */}
           {renderOracleItem('Kin', {
             kin: kin,
             tone: getKinComponents(kin).tone,
