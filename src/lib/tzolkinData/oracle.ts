@@ -36,6 +36,12 @@ export const calculateOracle = (kin: number) => {
   // Find the seal number (1-20)
   const sealNumber = solarSeals.findIndex(s => s.name === seal.name) + 1;
   
+  // Calculate Guide Seal using the exact formula:
+  // guideSeal = waveSealOrder[(waveSealOrder.indexOf(sealNumber) + toneNumber - 1) % 20]
+  const sealIndex = waveSealOrder.indexOf(sealNumber);
+  const guideIndex = (sealIndex + toneNumber - 1) % 20;
+  const guideSealNumber = waveSealOrder[guideIndex];
+  
   // Calculate Analog Seal (opposite column in Tzolkin)
   let analogSealNumber = 19 - sealNumber + 1;
   if (analogSealNumber <= 0) analogSealNumber += 20;
@@ -47,14 +53,6 @@ export const calculateOracle = (kin: number) => {
   // Calculate Hidden Seal and Tone
   let hiddenSealNumber = 21 - sealNumber;
   const hiddenToneNumber = 14 - toneNumber;
-  
-  // Calculate the Guide Seal using the wave order
-  // First, identify which position in the wave order the current seal is
-  const waveOrderIndex = waveSealOrder.indexOf(sealNumber);
-  
-  // The guide takes the same position in the wave order, but using the tone number to determine the offset
-  const guideOrderIndex = (waveOrderIndex + (toneNumber - 1)) % 20;
-  const guideSealNumber = waveSealOrder[guideOrderIndex];
   
   // Get the components for the antipode
   const antipodeComponents = getKinComponents(antipodeKin);
