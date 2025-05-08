@@ -66,6 +66,7 @@ const OracleView: React.FC<OracleViewProps> = ({
     toneNumber: number, 
     sealNumber: number
   }, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
+    // Importante: usar o kinData.kin diretamente do objeto de dados
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
@@ -111,12 +112,12 @@ const OracleView: React.FC<OracleViewProps> = ({
       
       {view === 'oracle' ? (
         <div className="grid grid-cols-3 grid-rows-3 gap-3 place-items-center">
-          {/* Agora todos os itens do Oracle vêm diretamente da desestruturação do calculateOracle */}
           {renderOracleItem('Guia', guide, 'top')}
           {renderOracleItem('Antípoda', antipode, 'left')}
+          {/* Para o Kin central, usamos diretamente os dados calculados em vez de construir manualmente */}
           {renderOracleItem('Kin', {
-            kin, 
-            tone: getKinComponents(kin).tone, 
+            kin: kin,
+            tone: getKinComponents(kin).tone,
             seal: getKinComponents(kin).seal,
             toneNumber: getKinComponents(kin).tone.number,
             sealNumber: solarSeals.findIndex(s => s.name === getKinComponents(kin).seal.name) + 1
