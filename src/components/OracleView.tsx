@@ -19,13 +19,6 @@ const OracleView: React.FC<OracleViewProps> = ({
   const { guide, analog, antipode, hidden } = calculateOracle(kin);
   const wave = calculateWave(kin);
   
-  // Debug logs for verification
-  console.log('ORACLE DEBUG:');
-  console.log('Guia:', guide);
-  console.log('Análogo:', analog);
-  console.log('Antípoda:', antipode);
-  console.log('Oculto:', hidden);
-  
   // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
   const formatKinName = (sealName: string, toneName: string, color: string) => {
     // Extrai apenas o nome base do selo (sem a cor)
@@ -64,13 +57,13 @@ const OracleView: React.FC<OracleViewProps> = ({
     tone: any, 
     toneNumber: number, 
     sealNumber: number
-  }, position: 'center' | 'top' | 'right' | 'bottom' | 'left') => {
+  }) => {
     // Use the kin directly from the calculation result
     const colorClass = getKinColorClass(kinData.kin);
     const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
     
     return (
-      <div className={`oracle-item flex flex-col items-center ${position === 'center' ? 'col-start-2 col-end-3 row-start-2 row-end-3' : ''} ${position === 'top' ? 'col-start-2 col-end-3 row-start-1 row-end-2' : ''} ${position === 'right' ? 'col-start-3 col-end-4 row-start-2 row-end-3' : ''} ${position === 'bottom' ? 'col-start-2 col-end-3 row-start-3 row-end-4' : ''} ${position === 'left' ? 'col-start-1 col-end-2 row-start-2 row-end-3' : ''}`}>
+      <div className="oracle-item flex flex-col items-center">
         <span className="text-sm font-medium mb-1">{title}</span>
         <div 
           className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
@@ -110,19 +103,34 @@ const OracleView: React.FC<OracleViewProps> = ({
       </h2>
       
       {view === 'oracle' ? (
-        <div className="grid grid-cols-3 grid-rows-3 gap-3 place-items-center">
-          {renderOracleItem('Guia', guide, 'top')}
-          {renderOracleItem('Antípoda', antipode, 'left')}
-          {/* O Kin central é a base do oráculo */}
-          {renderOracleItem('Kin', {
-            kin: kin,
-            tone: getKinComponents(kin).tone,
-            seal: getKinComponents(kin).seal,
-            toneNumber: getKinComponents(kin).tone.number,
-            sealNumber: solarSeals.findIndex(s => s.name === getKinComponents(kin).seal.name) + 1
-          }, 'center')}
-          {renderOracleItem('Análogo', analog, 'right')}
-          {renderOracleItem('Oculto', hidden, 'bottom')}
+        <div className="grid grid-cols-3 grid-rows-3 gap-4 p-4" style={{
+          gridTemplateAreas: `
+            ". guia ."
+            "antipoda destino analogico"
+            ". oculto ."
+          `
+        }}>
+          <div style={{ gridArea: 'guia' }}>
+            {renderOracleItem('Guia', guide)}
+          </div>
+          <div style={{ gridArea: 'antipoda' }}>
+            {renderOracleItem('Antípoda', antipode)}
+          </div>
+          <div style={{ gridArea: 'destino' }}>
+            {renderOracleItem('Kin', {
+              kin: kin,
+              tone: getKinComponents(kin).tone,
+              seal: getKinComponents(kin).seal,
+              toneNumber: getKinComponents(kin).tone.number,
+              sealNumber: solarSeals.findIndex(s => s.name === getKinComponents(kin).seal.name) + 1
+            })}
+          </div>
+          <div style={{ gridArea: 'analogico' }}>
+            {renderOracleItem('Análogo', analog)}
+          </div>
+          <div style={{ gridArea: 'oculto' }}>
+            {renderOracleItem('Oculto', hidden)}
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-13 gap-1 p-2">

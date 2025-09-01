@@ -10,8 +10,6 @@ const OracleDescription: React.FC<OracleDescriptionProps> = ({ kin }) => {
   // Calculate oracle data directly for each render
   const { guide, analog, antipode, hidden } = calculateOracle(kin);
   
-  console.log('Oracle in description:', { guide, analog, antipode, hidden });
-  
   // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
   const formatKinName = (sealName: string, toneName: string, color: string) => {
     // Extrai apenas o nome base do selo (sem a cor)

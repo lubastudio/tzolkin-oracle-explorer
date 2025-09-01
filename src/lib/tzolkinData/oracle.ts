@@ -2,30 +2,30 @@
 import { getKinComponents } from './calculations';
 import { solarSeals, galacticTones } from './data';
 
-// Define the waveSealOrder for Guide calculations
-// This is the fixed order of seals in a wave as specified
-const waveSealOrder = [
-  1,  // Dragão
-  14, // Mago
-  7,  // Mão
-  20, // Sol
-  13, // Caminhante
-  6,  // Enlaçador
-  19, // Tormenta
-  12, // Humano
-  5,  // Serpente
-  18, // Espelho
-  11, // Macaco
-  4,  // Semente
-  17, // Terra
-  10, // Cachorro
-  3,  // Noite
-  16, // Guerreiro
-  9,  // Lua
-  2,  // Vento
-  15, // Águia
-  8   // Estrela
-];
+// Fixed analog table - never use formula
+const ANALOGO: Record<number, number> = {
+  1:18, 18:1,  2:17, 17:2,  3:16, 16:3,  4:15, 15:4,  5:14, 14:5,
+  6:13, 13:6,  7:12, 12:7,  8:11, 11:8,  9:10, 10:9, 19:20, 20:19
+};
+
+// Guide calculation function
+const guiaSelo = (selo: number, tom: number): number => {
+  if ([1, 6, 11].includes(tom)) return selo; // AUTOGUIA
+  // demais tons seguem offsets por tom:
+  if ([2, 7, 12].includes(tom)) return ((selo - 1 + 12) % 20) + 1;
+  if ([3, 8, 13].includes(tom)) return ((selo - 1 + 4)  % 20) + 1;
+  if ([4, 9].includes(tom))     return ((selo - 1 + 16) % 20) + 1; // -4
+  if ([5, 10].includes(tom))    return ((selo - 1 + 8)  % 20) + 1;
+  return selo;
+};
+
+// Hidden Kin calculation - correct formula: 261 - Kin
+const ocultoDeKin = (kin: number) => {
+  const k = 261 - kin;        // 1..260
+  const tom  = ((k - 1) % 13) + 1;
+  const selo = ((k - 1) % 20) + 1;
+  return { kin: k, tom, selo };
+};
 
 // Calculate the Oracle for a specific Kin
 export const calculateOracle = (kin: number) => {
@@ -36,23 +36,18 @@ export const calculateOracle = (kin: number) => {
   // Find the seal number (1-20)
   const sealNumber = solarSeals.findIndex(s => s.name === seal.name) + 1;
   
-  // Calculate Guide Seal using the exact formula:
-  // guideSeal = waveSealOrder[(waveSealOrder.indexOf(sealNumber) + toneNumber - 1) % 20]
-  const sealIndex = waveSealOrder.indexOf(sealNumber);
-  const guideIndex = (sealIndex + toneNumber - 1) % 20;
-  const guideSealNumber = waveSealOrder[guideIndex];
+  // Calculate Guide Seal using correct logic
+  const guideSealNumber = guiaSelo(sealNumber, toneNumber);
   
-  // Calculate Analog Seal (opposite column in Tzolkin)
-  let analogSealNumber = 19 - sealNumber + 1;
-  if (analogSealNumber <= 0) analogSealNumber += 20;
+  // Calculate Analog Seal using fixed table
+  const analogSealNumber = ANALOGO[sealNumber];
   
-  // Calculate Antipode Kin (opposite in the 260-day cycle)
+  // Calculate Antipode Kin (same as before)
   let antipodeKin = kin + 130;
   if (antipodeKin > 260) antipodeKin -= 260;
   
-  // Calculate Hidden Seal and Tone
-  let hiddenSealNumber = 21 - sealNumber;
-  const hiddenToneNumber = 14 - toneNumber;
+  // Calculate Hidden using correct formula: 261 - kin
+  const hiddenData = ocultoDeKin(kin);
   
   // Get the components for the antipode
   const antipodeComponents = getKinComponents(antipodeKin);
@@ -81,16 +76,11 @@ export const calculateOracle = (kin: number) => {
       sealNumber: solarSeals.findIndex(s => s.name === antipodeComponents.seal.name) + 1,
     },
     hidden: {
-      kin: calculateKinNumber(
-        hiddenToneNumber <= 0 ? hiddenToneNumber + 13 : hiddenToneNumber, 
-        hiddenSealNumber
-      ),
-      seal: solarSeals[hiddenSealNumber - 1],
-      tone: galacticTones[
-        hiddenToneNumber <= 0 ? hiddenToneNumber + 13 - 1 : hiddenToneNumber - 1
-      ],
-      toneNumber: hiddenToneNumber <= 0 ? hiddenToneNumber + 13 : hiddenToneNumber,
-      sealNumber: hiddenSealNumber,
+      kin: hiddenData.kin,
+      seal: solarSeals[hiddenData.selo - 1],
+      tone: galacticTones[hiddenData.tom - 1],
+      toneNumber: hiddenData.tom,
+      sealNumber: hiddenData.selo,
     }
   };
 };
