@@ -62,16 +62,21 @@ export const getKinComponents = (kin: number): {
   };
 };
 
-// Helper function to calculate a kin number based on tone and seal numbers
+// Euclidean modulo helper
+const emod = (n: number, m: number) => ((n % m) + m) % m;
+
+// Calculate Kin from (seal, tone) using Chinese Remainder Theorem (no loops)
+export const seloTomParaKin = (selo: number, tom: number): number => {
+  const a = emod(selo - 1, 20); // 0..19
+  const b = emod(tom  - 1, 13); // 0..12
+  const t = emod(2 * (b - a), 13); // 2 is the inverse of 7 modulo 13
+  const k0 = a + 20 * t;            // 0..259
+  return (k0 % 260) + 1;            // 1..260
+};
+
+// Backwards-compatible helper: delegates to seloTomParaKin
 export const calculateKinWithToneAndSeal = (toneNumber: number, sealNumber: number): number => {
-  // Formula: (tone - 1) * 20 + seal
-  let kin = (toneNumber - 1) * 20 + sealNumber;
-  
-  // Ensure it's within the 1-260 range
-  if (kin <= 0) kin += 260;
-  if (kin > 260) kin -= 260;
-  
-  return kin;
+  return seloTomParaKin(sealNumber, toneNumber);
 };
 
 // Get color class for a kin

@@ -1,5 +1,5 @@
 
-import { getKinComponents } from './calculations';
+import { getKinComponents, seloTomParaKin } from './calculations';
 import { solarSeals, galacticTones } from './data';
 
 // Fixed analog table - never use formula
@@ -55,14 +55,14 @@ export const calculateOracle = (kin: number) => {
   // Create the complete oracle return object with all fields
   return {
     guide: {
-      kin: calculateKinNumber(toneNumber, guideSealNumber),
+      kin: seloTomParaKin(guideSealNumber, toneNumber),
       seal: solarSeals[guideSealNumber - 1],
       tone: galacticTones[toneNumber - 1],
       toneNumber,
       sealNumber: guideSealNumber,
     },
     analog: {
-      kin: calculateKinNumber(toneNumber, analogSealNumber),
+      kin: seloTomParaKin(analogSealNumber, toneNumber),
       seal: solarSeals[analogSealNumber - 1],
       tone: galacticTones[toneNumber - 1],
       toneNumber,
@@ -85,11 +85,3 @@ export const calculateOracle = (kin: number) => {
   };
 };
 
-// Helper function to calculate a specific Kin number from tone and seal numbers
-const calculateKinNumber = (toneNumber: number, sealNumber: number): number => {
-  let kinNumber = ((toneNumber - 1) * 20 + sealNumber);
-  // Ensure the result is between 1 and 260
-  while (kinNumber <= 0) kinNumber += 260;
-  while (kinNumber > 260) kinNumber -= 260;
-  return kinNumber;
-};
