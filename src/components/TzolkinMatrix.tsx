@@ -25,7 +25,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         cells.push(
           <div 
             key={`kin-${kin}`}
-            className={`tzolkin-cell w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 m-0.5 rounded-md text-xs flex items-center justify-center ${getKinColorClass(kin)} ${
+            className={`tzolkin-cell w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 border border-black text-xs flex items-center justify-center ${getKinColorClass(kin)} ${
               isSelected ? 'ring-2 ring-black scale-110' : ''
             }`}
             onClick={() => onKinSelect(kin)}
@@ -36,7 +36,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
       }
       
       rows.push(
-        <div key={`seal-row-${sealIndex+1}`} className="flex flex-row">
+        <div key={`seal-row-${sealIndex+1}`} className="flex flex-row -mt-px">
           {cells}
         </div>
       );

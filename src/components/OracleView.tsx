@@ -117,7 +117,7 @@ const OracleView: React.FC<OracleViewProps> = ({
             {renderOracleItem('Antípoda', antipode)}
           </div>
           <div style={{ gridArea: 'destino' }}>
-            {renderOracleItem('Kin do Dia', {
+            {renderOracleItem('Principal', {
               kin: kin,
               tone: getKinComponents(kin).tone,
               seal: getKinComponents(kin).seal,
