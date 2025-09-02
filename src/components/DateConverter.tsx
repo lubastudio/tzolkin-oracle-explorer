@@ -90,15 +90,6 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
       <form onSubmit={handleDateSubmit} className="flex flex-col gap-3">
-        {/* Today button - now at the top */}
-        <Button 
-          type="button" 
-          onClick={setToday}
-          className={`w-full text-black ${isTodayActive ? 'bg-[#eee5d5]' : 'bg-[#f8f6f2]'} hover:bg-[#eee5d5] border-none`}
-        >
-          <CalendarDays className="w-4 h-4 mr-1" />
-          Hoje
-        </Button>
         
         {/* Day input */}
         <div>
@@ -117,12 +108,12 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               <button 
                 type="button" 
                 onClick={incrementDay}
-                className="text-xs text-black hover:bg-gray-100 px-1"
+                className="text-xs text-black hover:bg-gray-100 px-1 font-bold"
               >▲</button>
               <button 
                 type="button" 
                 onClick={decrementDay}
-                className="text-xs text-black hover:bg-gray-100 px-1"
+                className="text-xs text-black hover:bg-gray-100 px-1 font-bold"
               >▼</button>
             </div>
           </div>
@@ -167,12 +158,12 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               <button 
                 type="button" 
                 onClick={incrementYear}
-                className="text-xs text-black hover:bg-gray-100 px-1"
+                className="text-xs text-black hover:bg-gray-100 px-1 font-bold"
               >▲</button>
               <button 
                 type="button" 
                 onClick={decrementYear}
-                className="text-xs text-black hover:bg-gray-100 px-1"
+                className="text-xs text-black hover:bg-gray-100 px-1 font-bold"
               >▼</button>
             </div>
           </div>
@@ -181,8 +172,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         {/* Calculate Kin button - now at the bottom */}
         <Button 
           type="submit" 
-          className="w-full bg-primary hover:bg-primary/80 mt-2"
-          disabled={isTodayActive}
+          className="w-full bg-black text-white hover:bg-gray-800 mt-2"
         >
           Calcular Kin
         </Button>

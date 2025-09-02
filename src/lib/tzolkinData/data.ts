@@ -29,7 +29,7 @@ export const galacticTones = [
   { name: "Lunar", number: 2, description: "Desafio" },
   { name: "Elétrico", number: 3, description: "Serviço" },
   { name: "Auto-Existente", number: 4, description: "Forma" },
-  { name: "Radial", number: 5, description: "Comando" },
+  { name: "Harmônico", number: 5, description: "Comando" },
   { name: "Rítmico", number: 6, description: "Equilíbrio" },
   { name: "Ressonante", number: 7, description: "Sintonia" },
   { name: "Galáctico", number: 8, description: "Integridade" },

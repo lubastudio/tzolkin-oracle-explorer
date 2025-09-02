@@ -42,28 +42,17 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Section 2: 3-column layout */}
-        <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Column 1: Kin Description - moved from section 1 column 2 */}
-          <div className="space-y-4">
-            <KinDescription kin={selectedKin} />
-          </div>
-          
-          {/* Column 2: Oracle Description - moved from section 1 column 3 */}
-          <div className="space-y-4">
-            <OracleDescription kin={selectedKin} />
-          </div>
-          
-          {/* Column 3: Wave View and Wave Description - consolidated */}
-          <div className="space-y-4">
-            <OracleView
-              kin={selectedKin}
-              onKinSelect={setSelectedKin}
-              view="wave"
-              onViewChange={() => {}} // Disabled function since we'll remove the buttons
-            />
-            <WaveDescription kin={selectedKin} />
-          </div>
+        {/* Hidden cards - as requested */}
+        <div className="hidden">
+          <KinDescription kin={selectedKin} />
+          <OracleDescription kin={selectedKin} />
+          <OracleView
+            kin={selectedKin}
+            onKinSelect={setSelectedKin}
+            view="wave"
+            onViewChange={() => {}}
+          />
+          <WaveDescription kin={selectedKin} />
         </div>
       </main>
       

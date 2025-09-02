@@ -99,7 +99,7 @@ const OracleView: React.FC<OracleViewProps> = ({
   return (
     <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
       <h2 className="text-xl font-semibold text-black mb-4">
-        {view === 'oracle' ? 'Oráculo do Kin' : 'Onda Encantada'}
+        {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
       </h2>
       
       {view === 'oracle' ? (
