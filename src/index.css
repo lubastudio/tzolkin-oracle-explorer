@@ -59,3 +59,10 @@
     @apply text-xl font-semibold mb-3 text-black border-b border-black pb-2;
   }
 }
+
+/* Remove native arrows from selects and inputs */
+select, input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

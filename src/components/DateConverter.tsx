@@ -44,9 +44,9 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   };
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(e.target.value);
-    if (!isNaN(value)) {
-      setYear(value);
+    const value = e.target.value;
+    if (value === '' || /^\d+$/.test(value)) {
+      setYear(value === '' ? new Date().getFullYear() : parseInt(value));
     }
   };
 
@@ -101,7 +101,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               max="31"
               value={day}
               onChange={(e) => setDay(parseInt(e.target.value))}
-              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
               required
             />
             <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
@@ -125,7 +125,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           <select
             value={month}
             onChange={(e) => setMonth(parseInt(e.target.value))}
-            className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300"
+            className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
             required
           >
             <option value="0">Janeiro</option>
@@ -151,7 +151,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               type="number"
               value={year}
               onChange={handleYearChange}
-              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
               required
             />
             <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">

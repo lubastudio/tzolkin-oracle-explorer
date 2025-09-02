@@ -64,7 +64,7 @@ const OracleView: React.FC<OracleViewProps> = ({
     
     return (
       <div className="oracle-item flex flex-col items-center">
-        <span className="text-sm font-medium mb-1">{title}</span>
+        <span className="text-sm font-bold mb-1">{title}</span>
         <div 
           className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
           onClick={() => onKinSelect(kinData.kin)}
@@ -117,7 +117,7 @@ const OracleView: React.FC<OracleViewProps> = ({
             {renderOracleItem('Antípoda', antipode)}
           </div>
           <div style={{ gridArea: 'destino' }}>
-            {renderOracleItem('Kin', {
+            {renderOracleItem('Kin do Dia', {
               kin: kin,
               tone: getKinComponents(kin).tone,
               seal: getKinComponents(kin).seal,

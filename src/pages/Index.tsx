@@ -17,10 +17,10 @@ const Index = () => {
       <main className="container mx-auto py-6 px-4 md:px-6 space-y-4">
         {/* Section 1: 3-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* Column 1: Kin Info and Date Converter - moved to first column */}
+          {/* Column 1: Date Converter and Kin Info - calculator above kin */}
           <div className="lg:col-span-3 space-y-4">
-            <KinInfo kin={selectedKin} />
             <DateConverter onKinSelect={setSelectedKin} />
+            <KinInfo kin={selectedKin} />
           </div>
           
           {/* Column 2: Oracle View - moved from column 3 */}
@@ -57,7 +57,7 @@ const Index = () => {
       </main>
       
       <footer className="border-t border-primary/30 mt-8 py-4 text-center text-gray-400">
-        <p>Tzolkin Oracle Explorer &copy; {new Date().getFullYear()}</p>
+        <p>Calculadora de Kin / <strong>Luba</strong> Studio</p>
       </footer>
     </div>
   );

@@ -58,23 +58,19 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
             <span className="text-2xl font-bold">{seal.name.split(" ")[0]}</span>
           </div>
           <p className="font-semibold">{seal.name}</p>
+          <p className="text-sm text-black text-center">{seal.description}</p>
         </div>
         
         <div className="flex flex-col items-center">
           <span className="font-medium text-black mb-1">Tom</span>
-          <div className="w-24 h-24 rounded-lg flex items-center justify-center mb-2 bg-white border-2 border-black cursor-pointer hover:scale-105 transition">
+          <div className="w-24 h-24 rounded-full flex items-center justify-center mb-2 bg-white border-2 border-black cursor-pointer hover:scale-105 transition">
             <span className="text-3xl font-bold text-black">{tone.number}</span>
           </div>
           <p className="font-semibold">{tone.name}</p>
+          <p className="text-sm text-black text-center">{tone.description}</p>
         </div>
       </div>
       
-      {/* Keywords at bottom */}
-      <div className="text-center">
-        <p className="text-sm text-black">
-          {seal.description} • {tone.description}
-        </p>
-      </div>
     </div>
   );
 };
