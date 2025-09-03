@@ -73,11 +73,11 @@ const OracleView: React.FC<OracleViewProps> = ({
         </div>
         <div className="text-xs mt-1 text-center">
           <div>{kinData.seal.name.split(' ')[0]}</div>
+          <div>{kinData.tone.name}</div>
           <div>{kinData.seal.color === 'red' ? 'Vermelh' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : 
                     kinData.seal.color === 'white' ? 'Branc' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') :
                     kinData.seal.color === 'blue' ? 'Azul' :
                     kinData.seal.color === 'yellow' ? 'Amarel' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : ''}</div>
-          <div>{kinData.tone.name}</div>
         </div>
       </div>
     );
