@@ -13,8 +13,8 @@ const Index = () => {
   const [view, setView] = useState<'oracle' | 'wave'>('oracle');
 
   return (
-    <div style={{ height: 'auto', minHeight: '100%', overflowY: 'auto' }}>
-      <main className="container mx-auto py-6 px-4 md:px-6 space-y-4">
+    <div style={{ height: 'auto', minHeight: '100%', overflow: 'visible' }}>
+      <main className="container mx-auto py-6 px-4 md:px-6 space-y-4 overflow-visible">
         {/* Section 1: 3-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* Column 1: Date Converter and Kin Info - calculator above kin */}

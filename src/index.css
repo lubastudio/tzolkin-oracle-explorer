@@ -43,6 +43,9 @@
   body {
     @apply bg-white text-black;
     font-family: 'Inter', sans-serif;
+    height: auto;
+    min-height: 100%;
+    overflow: visible;
   }
 }
 

@@ -50,29 +50,34 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
     <div className="bg-tzolkin-lightBg p-4">
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
-        <h3 className="text-3xl font-bold mb-2">Kin {kin}</h3>
-        <h3 className="text-xs">{formatKinName()}</h3>
+        <h3 className="text-lg font-bold mb-2">Kin {kin}</h3>
+        <div className="text-lg font-semibold">
+          <div>{seal.name.split(" ")[0]} {tone.name}</div>
+          <div>{seal.color === 'red' ? (seal.name.includes('Noite') || seal.name.includes('Semente') || seal.name.includes('Serpente') || seal.name.includes('Mão') || seal.name.includes('Estrela') || seal.name.includes('Lua') || seal.name.includes('Águia') || seal.name.includes('Terra') || seal.name.includes('Tormenta') ? 'Vermelha' : 'Vermelho') : 
+                      seal.color === 'white' ? (seal.name.includes('Noite') || seal.name.includes('Semente') || seal.name.includes('Serpente') || seal.name.includes('Mão') || seal.name.includes('Estrela') || seal.name.includes('Lua') || seal.name.includes('Águia') || seal.name.includes('Terra') || seal.name.includes('Tormenta') ? 'Branca' : 'Branco') :
+                      seal.color === 'blue' ? 'Azul' :
+                      seal.color === 'yellow' ? (seal.name.includes('Noite') || seal.name.includes('Semente') || seal.name.includes('Serpente') || seal.name.includes('Mão') || seal.name.includes('Estrela') || seal.name.includes('Lua') || seal.name.includes('Águia') || seal.name.includes('Terra') || seal.name.includes('Tormenta') ? 'Amarela' : 'Amarelo') : ''}</div>
+        </div>
       </div>
       
       {/* Seal and Tone side by side */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
-        <div className="flex flex-col items-center">
-          <span className="font-medium text-black mb-1">Selo</span>
-          <div className={`w-24 h-24 ${colorClass} rounded-lg flex flex-col items-center justify-center mb-2 cursor-pointer hover:scale-105 transition`}>
-            <span className="text-lg font-bold">{seal.name.split(" ")[0]}</span>
-            <span className="text-sm font-bold">{sealNumber}</span>
+      <div className="flex flex-col md:flex-row items-start justify-center gap-8 mb-4">
+        <div className="flex flex-col items-center w-64">
+          <span className="font-medium text-black mb-3">Selo</span>
+          <div className={`w-40 h-40 ${colorClass} rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:scale-105 transition`}>
+            <span className="text-5xl font-bold text-white">{sealNumber}</span>
           </div>
-          <p className="font-semibold">{seal.name}</p>
-          <p className="text-xs text-black text-center">{seal.description}</p>
+          <h4 className="text-lg font-semibold text-center max-w-64 break-words mb-2">{seal.name}</h4>
+          <p className="text-sm text-black text-center min-h-9 leading-tight max-w-64 break-words">{seal.description}</p>
         </div>
         
-        <div className="flex flex-col items-center">
-          <span className="font-medium text-black mb-1">Tom</span>
-          <div className="w-24 h-24 rounded-full flex items-center justify-center mb-2 bg-white border-2 border-black cursor-pointer hover:scale-105 transition">
-            <span className="text-3xl font-bold text-black">{tone.number}</span>
+        <div className="flex flex-col items-center w-64">
+          <span className="font-medium text-black mb-3">Tom</span>
+          <div className="w-40 h-40 rounded-full flex items-center justify-center mb-3 bg-white border-4 border-black cursor-pointer hover:scale-105 transition">
+            <span className="text-5xl font-bold text-black">{tone.number}</span>
           </div>
-          <p className="font-semibold">{tone.name}</p>
-          <p className="text-xs text-black text-center">{tone.description}</p>
+          <h4 className="text-lg font-semibold text-center max-w-64 break-words mb-2">{tone.name}</h4>
+          <p className="text-sm text-black text-center min-h-9 leading-tight max-w-64 break-words">{tone.description}</p>
         </div>
       </div>
       
