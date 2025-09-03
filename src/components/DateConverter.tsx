@@ -88,7 +88,8 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   };
 
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
+    <div className="bg-tzolkin-lightBg p-4">
+      <h2 className="text-xl font-bold text-black mb-4 text-center">Calculadora de Kin</h2>
       <form onSubmit={handleDateSubmit} className="flex flex-col gap-3">
         
         {/* Day input */}
@@ -101,7 +102,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               max="31"
               value={day}
               onChange={(e) => setDay(parseInt(e.target.value))}
-              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
               required
             />
             <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
@@ -125,7 +126,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
           <select
             value={month}
             onChange={(e) => setMonth(parseInt(e.target.value))}
-            className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
+            className="w-full h-10 px-3 py-2 bg-white text-black rounded border border-gray-300"
             required
           >
             <option value="0">Janeiro</option>
@@ -147,11 +148,20 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         <div>
           <label className="block text-sm text-black mb-1">Ano</label>
           <div className="group relative">
-            <Input
-              type="number"
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              maxLength={4}
               value={year}
-              onChange={handleYearChange}
-              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300 appearance-none"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D+/g, '');
+                const numValue = Number(value);
+                if (value === '' || (numValue >= 1900 && numValue <= 2100)) {
+                  setYear(numValue || new Date().getFullYear());
+                }
+              }}
+              className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
               required
             />
             <div className="absolute right-1 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">

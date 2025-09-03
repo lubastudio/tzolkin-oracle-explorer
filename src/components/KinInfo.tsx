@@ -43,11 +43,11 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   };
   
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
+    <div className="bg-tzolkin-lightBg p-4">
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
         <h3 className="text-3xl font-bold mb-2">Kin {kin}</h3>
-        <h3 className="text-2xl">{formatKinName()}</h3>
+        <h3 className="text-xs">{formatKinName()}</h3>
       </div>
       
       {/* Seal and Tone side by side */}
@@ -58,7 +58,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
             <span className="text-2xl font-bold">{seal.name.split(" ")[0]}</span>
           </div>
           <p className="font-semibold">{seal.name}</p>
-          <p className="text-sm text-black text-center">{seal.description}</p>
+          <p className="text-xs text-black text-center">{seal.description}</p>
         </div>
         
         <div className="flex flex-col items-center">
@@ -67,7 +67,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
             <span className="text-3xl font-bold text-black">{tone.number}</span>
           </div>
           <p className="font-semibold">{tone.name}</p>
-          <p className="text-sm text-black text-center">{tone.description}</p>
+          <p className="text-xs text-black text-center">{tone.description}</p>
         </div>
       </div>
       

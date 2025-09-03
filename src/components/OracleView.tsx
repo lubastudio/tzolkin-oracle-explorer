@@ -71,7 +71,14 @@ const OracleView: React.FC<OracleViewProps> = ({
         >
           <div className="font-bold">Kin {kinData.kin}</div>
         </div>
-        <span className="text-xs mt-1">{kinName}</span>
+        <div className="text-xs mt-1 text-center">
+          <div>{kinData.seal.name.split(' ')[0]}</div>
+          <div>{kinData.seal.color === 'red' ? 'Vermelh' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : 
+                    kinData.seal.color === 'white' ? 'Branc' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') :
+                    kinData.seal.color === 'blue' ? 'Azul' :
+                    kinData.seal.color === 'yellow' ? 'Amarel' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : ''}</div>
+          <div>{kinData.tone.name}</div>
+        </div>
       </div>
     );
   };
@@ -97,19 +104,20 @@ const OracleView: React.FC<OracleViewProps> = ({
   };
   
   return (
-    <div className="bg-tzolkin-lightBg rounded-lg p-4 shadow-lg">
-      <h2 className="text-xl font-semibold text-black mb-4">
+    <div className="bg-tzolkin-lightBg p-4">
+      <h2 className="text-xl font-bold text-black mb-4 text-center">
         {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
       </h2>
       
       {view === 'oracle' ? (
-        <div className="grid grid-cols-3 grid-rows-3 gap-4 p-4" style={{
-          gridTemplateAreas: `
-            ". guia ."
-            "antipoda destino analogico"
-            ". oculto ."
-          `
-        }}>
+        <div className="flex justify-center">
+          <div className="grid grid-cols-3 grid-rows-3 gap-4 p-4" style={{
+            gridTemplateAreas: `
+              ". guia ."
+              "antipoda destino analogico"
+              ". oculto ."
+            `
+          }}>
           <div style={{ gridArea: 'guia' }}>
             {renderOracleItem('Guia', guide)}
           </div>
@@ -130,6 +138,7 @@ const OracleView: React.FC<OracleViewProps> = ({
           </div>
           <div style={{ gridArea: 'oculto' }}>
             {renderOracleItem('Oculto', hidden)}
+          </div>
           </div>
         </div>
       ) : (

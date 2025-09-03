@@ -13,7 +13,7 @@ const Index = () => {
   const [view, setView] = useState<'oracle' | 'wave'>('oracle');
 
   return (
-    <div className="min-h-screen bg-white">
+    <div style={{ height: 'auto', minHeight: '100%', overflowY: 'auto' }}>
       <main className="container mx-auto py-6 px-4 md:px-6 space-y-4">
         {/* Section 1: 3-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
@@ -55,10 +55,6 @@ const Index = () => {
           <WaveDescription kin={selectedKin} />
         </div>
       </main>
-      
-      <footer className="border-t border-primary/30 mt-8 py-4 text-center text-gray-400">
-        <p>Calculadora de Kin / <strong>Luba</strong> Studio</p>
-      </footer>
     </div>
   );
 };

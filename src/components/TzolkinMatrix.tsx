@@ -46,9 +46,9 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
   };
 
   return (
-    <div className="bg-tzolkin-bg rounded-lg p-4 shadow-lg">
-      <h2 className="section-title">Tzolki'n</h2>
-      <div className="flex flex-col items-center w-full overflow-x-auto">
+    <div className="bg-tzolkin-bg p-4">
+      <h2 className="text-xl font-bold mb-3 text-black text-center">Matriz Tzolki'n</h2>
+      <div className="flex flex-col items-center w-full overflow-x-auto pt-2">
         {renderMatrix()}
       </div>
     </div>
