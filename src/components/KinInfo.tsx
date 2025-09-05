@@ -18,45 +18,49 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   // Calculate seal number
   const sealNumber = solarSeals.findIndex(s => s.name === seal.name) + 1;
   
-  // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
-  const formatKinName = () => {
-    // Extrai apenas o nome base do selo (sem a cor)
-    const baseSealName = seal.name.split(' ')[0];
-    
-    // Lista de selos femininos
+  // Helper function to get simplified seal name (remove "do céu", "de mundos" etc.)
+  const getSimplifiedSealName = () => {
+    return seal.name.split(' ')[0];
+  };
+  
+  // Helper function for gender agreement
+  const getGenderInfo = () => {
+    const baseSealName = getSimplifiedSealName();
     const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
     const isFeminine = feminineSeals.includes(baseSealName);
     
-    // Ajusta o adjetivo do tom para o gênero correto
+    // Adjust tone for gender
     let adjustedToneName = tone.name;
-    if (isFeminine) {
-      // Converte adjetivos masculinos para femininos
-      if (tone.name.endsWith('o')) {
-        adjustedToneName = tone.name.slice(0, -1) + 'a';
-      }
+    if (isFeminine && tone.name.endsWith('o')) {
+      adjustedToneName = tone.name.slice(0, -1) + 'a';
     }
     
-    // Cor em português com gênero correto
+    // Color with gender agreement
     const colorTranslation: Record<string, [string, string]> = {
       'red': ['Vermelho', 'Vermelha'],
       'white': ['Branco', 'Branca'],
-      'blue': ['Azul', 'Azul'],  // Azul não muda no feminino
+      'blue': ['Azul', 'Azul'],
       'yellow': ['Amarelo', 'Amarela']
     };
     
-    const colorAdjective = isFeminine ? colorTranslation[seal.color as keyof typeof colorTranslation][1] : 
-                                     colorTranslation[seal.color as keyof typeof colorTranslation][0];
+    const colorAdjective = isFeminine ? 
+      colorTranslation[seal.color as keyof typeof colorTranslation][1] : 
+      colorTranslation[seal.color as keyof typeof colorTranslation][0];
     
-    return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
+    return { baseSealName, adjustedToneName, colorAdjective };
   };
+  
+  const { baseSealName, adjustedToneName, colorAdjective } = getGenderInfo();
   
   return (
     <div className="bg-tzolkin-lightBg p-4">
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
         <h3 className="text-3xl md:text-4xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
-        <div className="text-xl md:text-2xl font-semibold kin-subtitle">
-          <div>{formatKinName()}</div>
+        <div className="text-xl md:text-2xl font-semibold kin-subtitle leading-tight">
+          <div>{baseSealName}</div>
+          <div>{adjustedToneName}</div>
+          <div>{colorAdjective}</div>
         </div>
       </div>
       
@@ -70,15 +74,16 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
             <span className={`text-3xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
           </div>
 
-          {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
-          <h4 className="text-xl md:text-2xl font-semibold text-center max-w-64 whitespace-normal break-words mb-2 h-16 flex items-center">
-            {seal.name}
-          </h4>
+          {/* TÍTULO ABAIXO - 2 linhas: Selo + Cor */}
+          <div className="text-lg font-semibold text-center max-w-64 mb-2 h-14 flex flex-col justify-center leading-tight">
+            <div>{baseSealName}</div>
+            <div>{colorAdjective}</div>
+          </div>
 
-          {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
-          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
-            {seal.description}
-          </p>
+          {/* ASPECTOS - 2 linhas: Atributo / Atributo */}
+          <div className="text-sm text-black text-center leading-tight max-w-64 h-10 flex flex-col justify-center">
+            <div>{seal.description}</div>
+          </div>
         </div>
         
         <div className="flex flex-col items-center w-64">
@@ -90,14 +95,14 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
           </div>
 
           {/* TÍTULO ABAIXO - altura fixa */}
-          <h4 className="text-xl md:text-2xl font-semibold text-center max-w-64 whitespace-normal break-words mb-2 h-16 flex items-center">
-            {tone.name}
-          </h4>
+          <div className="text-lg font-semibold text-center max-w-64 mb-2 h-14 flex items-center justify-center">
+            {adjustedToneName}
+          </div>
 
           {/* ASPECTOS - altura fixa */}
-          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
-            {tone.description}
-          </p>
+          <div className="text-sm text-black text-center leading-tight max-w-64 h-10 flex flex-col justify-center">
+            <div>{tone.description}</div>
+          </div>
         </div>
       </div>
       

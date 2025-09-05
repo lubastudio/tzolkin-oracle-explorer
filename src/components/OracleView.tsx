@@ -60,7 +60,25 @@ const OracleView: React.FC<OracleViewProps> = ({
   }) => {
     // Use the kin directly from the calculation result
     const colorClass = getKinColorClass(kinData.kin);
-    const kinName = formatKinName(kinData.seal.name, kinData.tone.name, kinData.seal.color);
+    
+    // Simplify seal name (remove "do céu", "de mundos" etc.)
+    const simplifiedSealName = kinData.seal.name.split(' ')[0];
+    
+    // Apply gender agreement for color
+    const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
+    const isFeminine = feminineSeals.includes(simplifiedSealName);
+    
+    // Color with proper gender agreement
+    const colorTranslation: Record<string, [string, string]> = {
+      'red': ['Vermelho', 'Vermelha'],
+      'white': ['Branco', 'Branca'], 
+      'blue': ['Azul', 'Azul'],
+      'yellow': ['Amarelo', 'Amarela']
+    };
+    
+    const colorAdjective = isFeminine ? 
+      colorTranslation[kinData.seal.color as keyof typeof colorTranslation][1] : 
+      colorTranslation[kinData.seal.color as keyof typeof colorTranslation][0];
     
     return (
       <div className="oracle-item flex flex-col items-center">
@@ -69,15 +87,11 @@ const OracleView: React.FC<OracleViewProps> = ({
           className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
           onClick={() => onKinSelect(kinData.kin)}
         >
-          <div className="font-bold">Kin {kinData.kin}</div>
+          <div className="font-bold text-white">Kin {kinData.kin}</div>
         </div>
-        <div className="text-xs mt-1 text-center">
-          <div>{kinData.seal.name.split(' ')[0]}</div>
-          <div>{kinData.tone.name}</div>
-          <div>{kinData.seal.color === 'red' ? 'Vermelh' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : 
-                    kinData.seal.color === 'white' ? 'Branc' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') :
-                    kinData.seal.color === 'blue' ? 'Azul' :
-                    kinData.seal.color === 'yellow' ? 'Amarel' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : ''}</div>
+        <div className="text-xs mt-1 text-center leading-tight">
+          <div>{simplifiedSealName}</div>
+          <div>{colorAdjective}</div>
         </div>
       </div>
     );
