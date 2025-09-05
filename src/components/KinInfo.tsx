@@ -56,54 +56,46 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
       <div className="text-center mb-4">
         <h3 className="text-3xl md:text-4xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
         <div className="text-xl md:text-2xl font-semibold kin-subtitle">
-          <div>{seal.name.split(" ")[0]} {tone.name}</div>
-          <div>{
-            seal.color === 'red'
-              ? (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Vermelha' : 'Vermelho')
-              : seal.color === 'white'
-              ? (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Branca' : 'Branco')
-              : seal.color === 'blue'
-              ? 'Azul'
-              : (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Amarela' : 'Amarelo')
-          }</div>
+          <div>{formatKinName()}</div>
         </div>
       </div>
       
       {/* Seal and Tone side by side */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
         <div className="flex flex-col items-center w-64">
-          <span className="font-medium text-black mb-3">Selo</span>
+          <span className="font-medium text-black mb-3 h-5">Selo</span>
 
-          {/* FORMA FIXA (quadrado) */}
-          <div className={`w-32 h-32 ${colorClass} rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:scale-105 transition shrink-0`}>
-            <span className={`text-5xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
+          {/* FORMA FIXA (quadrado) - tamanho menor */}
+          <div className={`w-24 h-24 ${colorClass} rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:scale-105 transition shrink-0`}>
+            <span className={`text-3xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
           </div>
 
-          {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA */}
-          <h4 className="text-lg font-semibold text-center max-w-64 whitespace-normal break-words mb-2">
+          {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
+          <h4 className="text-xl md:text-2xl font-semibold text-center max-w-64 whitespace-normal break-words mb-2 h-16 flex items-center">
             {seal.name}
           </h4>
 
-          {/* ASPECTOS: 2 linhas máx. sem empurrar a forma */}
-          <p className="text-sm text-black text-center leading-tight max-w-64 min-h-9 whitespace-normal break-words">
+          {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
+          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {seal.description}
           </p>
         </div>
         
         <div className="flex flex-col items-center w-64">
-          <span className="font-medium text-black mb-3">Tom</span>
+          <span className="font-medium text-black mb-3 h-5">Tom</span>
 
-          {/* FORMA FIXA (círculo) */}
-          <div className="w-32 h-32 rounded-full flex items-center justify-center mb-3 bg-white border-4 border-black cursor-pointer hover:scale-105 transition shrink-0">
-            <span className="text-5xl font-bold text-black tom-num">{tone.number}</span>
+          {/* FORMA FIXA (círculo) - tamanho menor */}
+          <div className="w-24 h-24 rounded-full flex items-center justify-center mb-3 bg-white border-4 border-black cursor-pointer hover:scale-105 transition shrink-0">
+            <span className="text-3xl font-bold text-black tom-num">{tone.number}</span>
           </div>
 
-          {/* TÍTULO ABAIXO */}
-          <h4 className="text-lg font-semibold text-center max-w-64 whitespace-normal break-words mb-2">
+          {/* TÍTULO ABAIXO - altura fixa */}
+          <h4 className="text-xl md:text-2xl font-semibold text-center max-w-64 whitespace-normal break-words mb-2 h-16 flex items-center">
             {tone.name}
           </h4>
 
-          <p className="text-sm text-black text-center leading-tight max-w-64 min-h-9 whitespace-normal break-words">
+          {/* ASPECTOS - altura fixa */}
+          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {tone.description}
           </p>
         </div>
