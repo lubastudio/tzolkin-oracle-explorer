@@ -11,6 +11,10 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   const { tone, seal } = getKinComponents(kin);
   const colorClass = getKinColorClass(kin);
   
+  // número legível em fundo claro (amarelo/branco) vs escuro (vermelho/azul)
+  const sealTextColorClass =
+    seal.color === 'yellow' || seal.color === 'white' ? 'text-black' : 'text-white';
+  
   // Calculate seal number
   const sealNumber = solarSeals.findIndex(s => s.name === seal.name) + 1;
   
@@ -50,29 +54,58 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
     <div className="bg-tzolkin-lightBg p-4">
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
-        <h3 className="text-3xl font-bold mb-2">Kin {kin}</h3>
-        <h3 className="text-xs">{formatKinName()}</h3>
+        <h3 className="text-3xl md:text-4xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
+        <div className="text-xl md:text-2xl font-semibold kin-subtitle">
+          <div>{seal.name.split(" ")[0]} {tone.name}</div>
+          <div>{
+            seal.color === 'red'
+              ? (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Vermelha' : 'Vermelho')
+              : seal.color === 'white'
+              ? (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Branca' : 'Branco')
+              : seal.color === 'blue'
+              ? 'Azul'
+              : (["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"].includes(seal.name.split(' ')[0]) ? 'Amarela' : 'Amarelo')
+          }</div>
+        </div>
       </div>
       
       {/* Seal and Tone side by side */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
-        <div className="flex flex-col items-center">
-          <span className="font-medium text-black mb-1">Selo</span>
-          <div className={`w-24 h-24 ${colorClass} rounded-lg flex flex-col items-center justify-center mb-2 cursor-pointer hover:scale-105 transition`}>
-            <span className="text-lg font-bold">{seal.name.split(" ")[0]}</span>
-            <span className="text-sm font-bold">{sealNumber}</span>
+        <div className="flex flex-col items-center w-64">
+          <span className="font-medium text-black mb-3">Selo</span>
+
+          {/* FORMA FIXA (quadrado) */}
+          <div className={`w-32 h-32 ${colorClass} rounded-lg flex items-center justify-center mb-3 cursor-pointer hover:scale-105 transition shrink-0`}>
+            <span className={`text-5xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
           </div>
-          <p className="font-semibold">{seal.name}</p>
-          <p className="text-xs text-black text-center">{seal.description}</p>
+
+          {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA */}
+          <h4 className="text-lg font-semibold text-center max-w-64 whitespace-normal break-words mb-2">
+            {seal.name}
+          </h4>
+
+          {/* ASPECTOS: 2 linhas máx. sem empurrar a forma */}
+          <p className="text-sm text-black text-center leading-tight max-w-64 min-h-9 whitespace-normal break-words">
+            {seal.description}
+          </p>
         </div>
         
-        <div className="flex flex-col items-center">
-          <span className="font-medium text-black mb-1">Tom</span>
-          <div className="w-24 h-24 rounded-full flex items-center justify-center mb-2 bg-white border-2 border-black cursor-pointer hover:scale-105 transition">
-            <span className="text-3xl font-bold text-black">{tone.number}</span>
+        <div className="flex flex-col items-center w-64">
+          <span className="font-medium text-black mb-3">Tom</span>
+
+          {/* FORMA FIXA (círculo) */}
+          <div className="w-32 h-32 rounded-full flex items-center justify-center mb-3 bg-white border-4 border-black cursor-pointer hover:scale-105 transition shrink-0">
+            <span className="text-5xl font-bold text-black tom-num">{tone.number}</span>
           </div>
-          <p className="font-semibold">{tone.name}</p>
-          <p className="text-xs text-black text-center">{tone.description}</p>
+
+          {/* TÍTULO ABAIXO */}
+          <h4 className="text-lg font-semibold text-center max-w-64 whitespace-normal break-words mb-2">
+            {tone.name}
+          </h4>
+
+          <p className="text-sm text-black text-center leading-tight max-w-64 min-h-9 whitespace-normal break-words">
+            {tone.description}
+          </p>
         </div>
       </div>
       

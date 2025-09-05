@@ -151,15 +151,19 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
             <input
               type="text"
               inputMode="numeric"
-              pattern="[0-9]*"
+              pattern="\d*"
               maxLength={4}
               value={year}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D+/g, '');
-                const numValue = Number(value);
-                if (value === '' || (numValue >= 1900 && numValue <= 2100)) {
-                  setYear(numValue || new Date().getFullYear());
-                }
+                setYear(value === '' ? new Date().getFullYear() : parseInt(value));
+              }}
+              onKeyDown={(e) => {
+                // permite backspace, delete, setas, tab
+                const ok = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(e.key);
+                if (ok) return;
+                // bloqueia letras / símbolos
+                if (!/^\d$/.test(e.key)) e.preventDefault();
               }}
               className="w-full px-3 py-2 bg-white text-black rounded border border-gray-300"
               required
