@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { getKinColorClass } from '@/lib/tzolkinData';
-import { typo } from '@/lib/typography';
 
 interface TzolkinMatrixProps {
   selectedKin: number;
@@ -26,7 +25,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         cells.push(
           <div 
             key={`kin-${kin}`}
-            className={`tzolkin-cell w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 border border-black text-sm md:text-base font-semibold flex items-center justify-center ${getKinColorClass(kin)} ${
+            className={`tzolkin-cell w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 border border-black text-xs flex items-center justify-center ${getKinColorClass(kin)} ${
               isSelected ? 'ring-2 ring-black scale-110' : ''
             }`}
             onClick={() => onKinSelect(kin)}
@@ -48,7 +47,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
 
   return (
     <div className="bg-tzolkin-bg p-4">
-      <h2 className={`${typo.h3} mb-3 text-black text-center`}>Matriz Tzolki'n</h2>
+      <h2 className="text-xl font-bold mb-3 text-black text-center">Matriz Tzolki'n</h2>
       <div className="flex flex-col items-center w-full overflow-x-auto pt-2">
         {renderMatrix()}
       </div>
