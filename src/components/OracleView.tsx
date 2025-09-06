@@ -73,11 +73,38 @@ const OracleView: React.FC<OracleViewProps> = ({
         </div>
         <div className="text-xs mt-1 text-center">
           <div>{kinData.seal.name.split(' ')[0]}</div>
-          <div>{kinData.tone.name}</div>
-          <div>{kinData.seal.color === 'red' ? 'Vermelh' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : 
-                    kinData.seal.color === 'white' ? 'Branc' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') :
-                    kinData.seal.color === 'blue' ? 'Azul' :
-                    kinData.seal.color === 'yellow' ? 'Amarel' + (kinData.seal.name.includes('Noite') || kinData.seal.name.includes('Semente') || kinData.seal.name.includes('Serpente') || kinData.seal.name.includes('Mão') || kinData.seal.name.includes('Estrela') || kinData.seal.name.includes('Lua') || kinData.seal.name.includes('Águia') || kinData.seal.name.includes('Terra') || kinData.seal.name.includes('Tormenta') ? 'a' : 'o') : ''}</div>
+          <div>{
+            (() => {
+              // Apply gender agreement to tone name
+              const baseSealName = kinData.seal.name.split(' ')[0];
+              const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
+              const isFeminine = feminineSeals.includes(baseSealName);
+              
+              let adjustedToneName = kinData.tone.name;
+              if (isFeminine && kinData.tone.name.endsWith('o')) {
+                adjustedToneName = kinData.tone.name.slice(0, -1) + 'a';
+              }
+              
+              return adjustedToneName;
+            })()
+          }</div>
+          <div>{
+            (() => {
+              // Apply gender agreement to color
+              const baseSealName = kinData.seal.name.split(' ')[0];
+              const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
+              const isFeminine = feminineSeals.includes(baseSealName);
+              
+              const colorTranslation = {
+                'red': isFeminine ? 'Vermelha' : 'Vermelho',
+                'white': isFeminine ? 'Branca' : 'Branco',
+                'blue': 'Azul',  // Azul não muda no feminino
+                'yellow': isFeminine ? 'Amarela' : 'Amarelo'
+              };
+              
+              return colorTranslation[kinData.seal.color as keyof typeof colorTranslation] || '';
+            })()
+          }</div>
         </div>
       </div>
     );

@@ -96,12 +96,30 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         <div className="flex items-center gap-4">
           <label className="text-lg font-medium text-black w-12 shrink-0">Dia</label>
           <div className="group relative flex-1">
-            <Input
-              type="number"
-              min="1"
-              max="31"
+            <input
+              type="text"
+              inputMode="numeric"
+              pattern="\d*"
+              maxLength={2}
               value={day}
-              onChange={(e) => setDay(parseInt(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D+/g, '');
+                const numValue = value === '' ? 1 : parseInt(value);
+                
+                // Validate day range (1-31)
+                if (numValue >= 1 && numValue <= 31) {
+                  setDay(numValue);
+                } else if (value === '') {
+                  setDay(1);
+                }
+              }}
+              onKeyDown={(e) => {
+                // permite backspace, delete, setas, tab
+                const ok = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(e.key);
+                if (ok) return;
+                // bloqueia letras / símbolos
+                if (!/^\d$/.test(e.key)) e.preventDefault();
+              }}
               className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300 text-lg"
               required
             />
@@ -156,7 +174,11 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               value={year}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D+/g, '');
-                setYear(value === '' ? new Date().getFullYear() : parseInt(value));
+                if (value === '') {
+                  setYear(new Date().getFullYear());
+                } else {
+                  setYear(parseInt(value));
+                }
               }}
               onKeyDown={(e) => {
                 // permite backspace, delete, setas, tab
