@@ -11,9 +11,9 @@ interface DateConverterProps {
 
 const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   const today = new Date();
-  const [day, setDay] = useState<number>(today.getDate());
+  const [dayInput, setDayInput] = useState<string>(String(today.getDate()));
   const [month, setMonth] = useState<number>(today.getMonth()); // January is 0
-  const [year, setYear] = useState<number>(today.getFullYear());
+  const [yearInput, setYearInput] = useState<string>(String(today.getFullYear()));
   const [isTodayActive, setIsTodayActive] = useState<boolean>(true);
   
   // Check if current selection is today's date
@@ -28,55 +28,56 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   
   // Update isTodayActive whenever date changes
   useEffect(() => {
-    setIsTodayActive(checkIfToday(day, month, year));
-  }, [day, month, year]);
+    const d = dayInput === '' ? today.getDate() : parseInt(dayInput, 10);
+    const y = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    setIsTodayActive(checkIfToday(d, month, y));
+  }, [dayInput, month, yearInput]);
   
   useEffect(() => {
     // Calculate the kin for today when component mounts
-    const calculatedKin = calculateKinAccurate(year, month + 1, day);
+    const calculatedKin = calculateKinAccurate(today.getFullYear(), month + 1, today.getDate());
     onKinSelect(calculatedKin);
   }, [onKinSelect]);
 
   const handleDateSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const calculatedKin = calculateKinAccurate(year, month + 1, day);
+    const y = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    const d = dayInput === '' ? today.getDate() : parseInt(dayInput, 10);
+    const calculatedKin = calculateKinAccurate(y, month + 1, d);
     onKinSelect(calculatedKin);
   };
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '' || /^\d+$/.test(value)) {
-      setYear(value === '' ? new Date().getFullYear() : parseInt(value));
-    }
-  };
-
   const incrementYear = () => {
-    setYear(year + 1);
+    const currentYear = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    setYearInput(String(currentYear + 1));
   };
 
   const decrementYear = () => {
-    setYear(year - 1);
+    const currentYear = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    setYearInput(String(currentYear - 1));
   };
 
   const incrementDay = () => {
-    // Get days in current month
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const newDay = day + 1 > daysInMonth ? 1 : day + 1;
-    setDay(newDay);
+    const currentDay = dayInput === '' ? today.getDate() : parseInt(dayInput, 10);
+    const currentYear = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    const daysInMonth = new Date(currentYear, month + 1, 0).getDate();
+    const newDay = currentDay + 1 > daysInMonth ? 1 : currentDay + 1;
+    setDayInput(String(newDay));
   };
 
   const decrementDay = () => {
-    // Get days in current month
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const newDay = day - 1 < 1 ? daysInMonth : day - 1;
-    setDay(newDay);
+    const currentDay = dayInput === '' ? today.getDate() : parseInt(dayInput, 10);
+    const currentYear = yearInput === '' ? today.getFullYear() : parseInt(yearInput, 10);
+    const daysInMonth = new Date(currentYear, month + 1, 0).getDate();
+    const newDay = currentDay - 1 < 1 ? daysInMonth : currentDay - 1;
+    setDayInput(String(newDay));
   };
   
   const setToday = () => {
     const currentDate = new Date();
-    setDay(currentDate.getDate());
+    setDayInput(String(currentDate.getDate()));
     setMonth(currentDate.getMonth());
-    setYear(currentDate.getFullYear());
+    setYearInput(String(currentDate.getFullYear()));
     
     // Calculate and update the kin for today
     const calculatedKin = calculateKinAccurate(
@@ -101,17 +102,16 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               inputMode="numeric"
               pattern="\d*"
               maxLength={2}
-              value={day}
+              value={dayInput}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D+/g, '');
-                const numValue = value === '' ? 1 : parseInt(value);
-                
-                // Validate day range (1-31)
-                if (numValue >= 1 && numValue <= 31) {
-                  setDay(numValue);
-                } else if (value === '') {
-                  setDay(1);
-                }
+                const onlyDigits = e.target.value.replace(/\D+/g, '');
+                setDayInput(onlyDigits);
+              }}
+              onBlur={() => {
+                if (dayInput === '') return;
+                const n = parseInt(dayInput, 10);
+                const clamped = Math.max(1, Math.min(31, isNaN(n) ? 1 : n));
+                setDayInput(String(clamped));
               }}
               onKeyDown={(e) => {
                 // permite backspace, delete, setas, tab
@@ -171,21 +171,15 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
               inputMode="numeric"
               pattern="\d*"
               maxLength={4}
-              value={year}
+              value={yearInput}
               onChange={(e) => {
-                const value = e.target.value.replace(/\D+/g, '');
-                if (value === '') {
-                  setYear(new Date().getFullYear());
-                } else {
-                  setYear(parseInt(value));
-                }
+                // permite vazio; só remove não-dígitos
+                const next = e.target.value.replace(/\D+/g, '');
+                setYearInput(next);
               }}
               onKeyDown={(e) => {
-                // permite backspace, delete, setas, tab
                 const ok = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(e.key);
-                if (ok) return;
-                // bloqueia letras / símbolos
-                if (!/^\d$/.test(e.key)) e.preventDefault();
+                if (!ok && !/^\d$/.test(e.key)) e.preventDefault();
               }}
               className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300 text-lg"
               required
