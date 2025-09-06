@@ -2,6 +2,7 @@
 import React from 'react';
 import { calculateOracle, getKinComponents, getKinColorClass, calculateWave } from '@/lib/tzolkinData';
 import { solarSeals } from '@/lib/tzolkinData/data';
+import { typo } from '@/lib/typography';
 
 interface OracleViewProps {
   kin: number;
@@ -64,14 +65,14 @@ const OracleView: React.FC<OracleViewProps> = ({
     
     return (
       <div className="oracle-item flex flex-col items-center">
-        <span className="text-sm font-bold mb-1">{title}</span>
+        <span className={`${typo.title} mb-1`}>{title}</span>
         <div 
           className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
           onClick={() => onKinSelect(kinData.kin)}
         >
-          <div className="font-bold">Kin {kinData.kin}</div>
+          <div className={`${typo.h3} font-bold`}>Kin {kinData.kin}</div>
         </div>
-        <div className="text-xs mt-1 text-center">
+        <div className={`${typo.body} mt-1 text-center leading-tight`}>
           <div>{kinData.seal.name.split(' ')[0]}</div>
           <div>{
             (() => {
@@ -124,15 +125,15 @@ const OracleView: React.FC<OracleViewProps> = ({
         }`}
         onClick={() => onKinSelect(kinNumber)}
       >
-        <div className="text-sm font-bold">Kin {kinNumber}</div>
-        <div className="text-xs">{kinName}</div>
+        <div className={`${typo.body} font-bold`}>Kin {kinNumber}</div>
+        <div className={`${typo.body} leading-tight`}>{kinName}</div>
       </div>
     );
   };
   
   return (
     <div className="bg-tzolkin-lightBg p-4">
-      <h2 className="text-xl font-bold text-black mb-4 text-center">
+      <h2 className={`${typo.h3} text-black mb-4 text-center`}>
         {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
       </h2>
       
