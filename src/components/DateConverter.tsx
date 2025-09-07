@@ -90,12 +90,12 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
 
   return (
     <div className="bg-tzolkin-lightBg p-4">
-      <h2 className="text-xl font-bold text-black mb-4 text-center">Calculadora de Kin</h2>
+      <h2 className="text-sm font-bold text-black mb-4 text-center">Calculadora de Kin</h2>
       <form onSubmit={handleDateSubmit} className="flex flex-col gap-4">
         
         {/* Day input */}
         <div className="flex items-center gap-4">
-          <label className="text-lg font-medium text-black w-12 shrink-0">Dia</label>
+          <label className="text-xs font-medium text-black w-12 shrink-0">Dia</label>
           <div className="group relative flex-1">
             <input
               type="text"
@@ -120,7 +120,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
                 // bloqueia letras / símbolos
                 if (!/^\d$/.test(e.key)) e.preventDefault();
               }}
-              className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300 text-lg"
+              className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300"
               required
             />
             <div className="absolute right-2 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
@@ -140,11 +140,11 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         
         {/* Month input */}
         <div className="flex items-center gap-4">
-          <label className="text-lg font-medium text-black w-12 shrink-0">Mês</label>
+          <label className="text-xs font-medium text-black w-12 shrink-0">Mês</label>
           <select
             value={month}
             onChange={(e) => setMonth(parseInt(e.target.value))}
-            className="flex-1 h-12 px-4 py-3 bg-white text-black rounded-lg border border-gray-300 text-lg"
+            className="flex-1 h-12 px-4 py-3 bg-white text-black rounded-lg border border-gray-300"
             required
           >
             <option value="0">Janeiro</option>
@@ -164,7 +164,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         
         {/* Year input */}
         <div className="flex items-center gap-4">
-          <label className="text-lg font-medium text-black w-12 shrink-0">Ano</label>
+          <label className="text-xs font-medium text-black w-12 shrink-0">Ano</label>
           <div className="group relative flex-1">
             <input
               type="text"
@@ -181,7 +181,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
                 const ok = ['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(e.key);
                 if (!ok && !/^\d$/.test(e.key)) e.preventDefault();
               }}
-              className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300 text-lg"
+              className="w-full px-4 py-3 bg-white text-black rounded-lg border border-gray-300"
               required
             />
             <div className="absolute right-2 top-0 bottom-0 opacity-0 group-hover:opacity-100 flex flex-col justify-center">
