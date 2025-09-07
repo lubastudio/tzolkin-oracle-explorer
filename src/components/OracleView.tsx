@@ -124,7 +124,7 @@ const OracleView: React.FC<OracleViewProps> = ({
         }`}
         onClick={() => onKinSelect(kinNumber)}
       >
-        <div className="text-sm font-bold">Kin {kinNumber}</div>
+        <div className="text-xs font-bold">Kin {kinNumber}</div>
         <div className="text-xs">{kinName}</div>
       </div>
     );
@@ -132,7 +132,7 @@ const OracleView: React.FC<OracleViewProps> = ({
   
   return (
     <div className="bg-tzolkin-lightBg p-4">
-      <h2 className="text-sm text-black mb-4 text-center">
+      <h2 className="text-base text-black mb-4 text-center">
         {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
       </h2>
       

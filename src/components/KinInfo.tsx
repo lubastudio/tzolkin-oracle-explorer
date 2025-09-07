@@ -55,7 +55,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
         <h3 className="text-2xl md:text-3xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
-        <div className="font-semibold kin-subtitle">
+        <div className="text-base font-bold kin-subtitle">
           <div>{formatKinName()}</div>
         </div>
       </div>
@@ -63,39 +63,39 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
       {/* Seal and Tone side by side */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
         <div className="flex flex-col items-center w-64">
-          <span className="text-sm font-medium text-black mb-3 h-5">Selo</span>
+          <span className="text-sm text-black mb-3 h-5">Selo</span>
 
           {/* FORMA FIXA (quadrado) - tamanho menor */}
           <div className={`w-16 h-16 md:w-20 md:h-20 ${colorClass} rounded-lg flex items-center justify-center mb-1 cursor-pointer hover:scale-105 transition shrink-0`}>
-            <span className={`text-3xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
+            <span className={`text-2xl md:text-3xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
           </div>
 
           {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
-          <h4 className="font-semibold text-center max-w-64 whitespace-normal break-words mb-1 h-16 flex items-center">
+          <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words mb-1 h-16 flex items-center">
             {seal.name}
           </h4>
 
           {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
-          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {seal.description}
           </p>
         </div>
         
         <div className="flex flex-col items-center w-64">
-          <span className="text-sm font-medium text-black mb-3 h-5">Tom</span>
+          <span className="text-sm text-black mb-3 h-5">Tom</span>
 
           {/* FORMA FIXA (círculo) - tamanho menor */}
           <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-1 bg-white border-4 border-black cursor-pointer hover:scale-105 transition shrink-0">
-            <span className="text-3xl font-bold text-black tom-num">{tone.number}</span>
+            <span className="text-2xl md:text-3xl font-bold text-black tom-num">{tone.number}</span>
           </div>
 
           {/* TÍTULO ABAIXO - altura fixa */}
-          <h4 className="font-semibold text-center max-w-64 whitespace-normal break-words mb-1 h-16 flex items-center">
+          <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words mb-1 h-16 flex items-center">
             {tone.name}
           </h4>
 
           {/* ASPECTOS - altura fixa */}
-          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {tone.description}
           </p>
         </div>
