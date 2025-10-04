@@ -41,7 +41,8 @@
   }
 
   body {
-    @apply bg-white text-black;
+    @apply text-black;
+    background-color: #f4f2f0;
     font-family: 'Inter', sans-serif;
   }
 }

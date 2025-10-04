@@ -202,7 +202,8 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
         {/* Calculate Kin button - now at the bottom */}
         <Button 
           type="submit" 
-          className="w-full bg-black text-white hover:bg-gray-800 mt-2 text-sm font-bold"
+          className="w-full text-white hover:opacity-90 mt-2 text-sm font-bold"
+          style={{ backgroundColor: '#333333' }}
         >
           Calcular Kin
         </Button>

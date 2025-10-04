@@ -63,13 +63,13 @@ export default {
           ring: 'hsl(var(--sidebar-ring))'
         },
         tzolkin: {
-          red: '#c45e4f',
-          white: '#ece0d2',
-          blue: '#2c6775',
-          yellow: '#d5a575',
+          red: '#ea5569',
+          white: '#ffffff',
+          blue: '#167bed',
+          yellow: '#ffeb3b',
           cosmic: '#000000',
-          bg: '#FFFFFF',
-          lightBg: '#FFFFFF',
+          bg: '#f4f2f0',
+          lightBg: '#f4f2f0',
         }
       },
       backgroundImage: {
