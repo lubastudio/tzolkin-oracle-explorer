@@ -65,8 +65,8 @@ export default {
         tzolkin: {
           red: '#fd594f',
           white: '#ffffff',
-          blue: '#4f4efc',
-          yellow: '#fbc400',
+          blue: '#2fb6cc',
+          yellow: '#fdaa4f',
           cosmic: '#000000',
           bg: '#f4f2f0',
           lightBg: '#f4f2f0',
