@@ -85,7 +85,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
           <span className="text-sm text-black mb-3 h-5">Tom</span>
 
           {/* FORMA FIXA (círculo) - tamanho menor */}
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-1 bg-white border-4 border-black shrink-0">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-1 border-4 border-black shrink-0">
             <span className="text-2xl md:text-3xl font-bold text-black tom-num">{tone.number}</span>
           </div>
 
