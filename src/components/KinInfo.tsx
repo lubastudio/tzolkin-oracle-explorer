@@ -18,10 +18,14 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   // Calculate seal number
   const sealNumber = solarSeals.findIndex(s => s.name === seal.name) + 1;
   
-  // Função para formatar o nome do Kin corretamente: [Selo] + [Tom] + [Cor]
+  // Função para formatar o nome do Kin corretamente: [Selo Completo] + [Tom] + [Cor]
   const formatKinName = () => {
-    // Extrai apenas o nome base do selo (sem a cor)
-    const baseSealName = seal.name.split(' ')[0];
+    // Remove a cor do nome do selo (última palavra)
+    const sealParts = seal.name.split(' ');
+    const sealNameWithoutColor = sealParts.slice(0, -1).join(' ');
+    
+    // Extrai apenas o nome base do selo (primeira palavra para verificar gênero)
+    const baseSealName = sealParts[0];
     
     // Lista de selos femininos
     const feminineSeals = ["Noite", "Semente", "Serpente", "Mão", "Estrela", "Lua", "Águia", "Terra", "Tormenta"];
@@ -47,7 +51,12 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
     const colorAdjective = isFeminine ? colorTranslation[seal.color as keyof typeof colorTranslation][1] : 
                                      colorTranslation[seal.color as keyof typeof colorTranslation][0];
     
-    return `${baseSealName} ${adjustedToneName} ${colorAdjective}`;
+    return `${sealNameWithoutColor} ${adjustedToneName} ${colorAdjective}`;
+  };
+  
+  // Função para extrair apenas o nome base do selo (primeira palavra)
+  const getBaseSealName = () => {
+    return seal.name.split(' ')[0];
   };
   
   return (
@@ -72,7 +81,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
 
           {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
           <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
-            {seal.name}
+            {getBaseSealName()}
           </h4>
 
           {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
