@@ -66,7 +66,7 @@ export default {
           red: '#fd594f',
           white: '#ffffff',
           blue: '#4f4efc',
-          yellow: '#fcdd4e',
+          yellow: '#fbc400',
           cosmic: '#000000',
           bg: '#f4f2f0',
           lightBg: '#f4f2f0',
