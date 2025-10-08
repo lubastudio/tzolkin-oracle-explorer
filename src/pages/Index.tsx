@@ -16,7 +16,7 @@ const Index = () => {
     <div style={{ height: 'auto', minHeight: '100%', overflowY: 'auto' }}>
       <main className="container mx-auto py-6 px-4 md:px-6 space-y-4">
         {/* Section 1: 3-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Column 1: Date Converter and Kin Info - calculator above kin */}
           <div className="lg:col-span-3 space-y-4">
             <DateConverter onKinSelect={setSelectedKin} />
