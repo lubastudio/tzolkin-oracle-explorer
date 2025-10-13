@@ -42,7 +42,7 @@
 
   body {
     @apply text-black;
-    background-color: #f4f2f0;
+    background-color: transparent;
     font-family: 'Inter', sans-serif;
   }
 }
