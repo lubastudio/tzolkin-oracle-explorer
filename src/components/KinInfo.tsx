@@ -60,7 +60,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   };
   
   return (
-    <div className="bg-tzolkin-lightBg p-4">
+    <div className="p-4">
       {/* Kin number and name at top */}
       <div className="text-center mb-4">
         <h3 className="text-2xl md:text-3xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>

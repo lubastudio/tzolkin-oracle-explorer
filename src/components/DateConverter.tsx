@@ -89,7 +89,7 @@ const DateConverter: React.FC<DateConverterProps> = ({ onKinSelect }) => {
   };
 
   return (
-    <div className="bg-tzolkin-lightBg p-4">
+    <div className="p-4">
       <h2 className="text-base text-black mb-4 text-center">Calculadora de Kin</h2>
       <form onSubmit={handleDateSubmit} className="flex flex-col gap-4">
         
