@@ -85,7 +85,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
           </h4>
 
           {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
-          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {seal.description}
           </p>
         </div>
@@ -104,7 +104,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
           </h4>
 
           {/* ASPECTOS - altura fixa */}
-          <p className="text-sm text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
             {tone.description}
           </p>
         </div>
