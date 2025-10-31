@@ -24,6 +24,18 @@ import seal18 from '@/assets/seals/18.svg';
 import seal19 from '@/assets/seals/19.svg';
 import seal20 from '@/assets/seals/20.svg';
 
+// Import tone SVGs
+import tone1 from '@/assets/tones/1.svg';
+import tone2 from '@/assets/tones/2.svg';
+import tone3 from '@/assets/tones/3.svg';
+import tone4 from '@/assets/tones/4.svg';
+import tone5 from '@/assets/tones/5.svg';
+import tone6 from '@/assets/tones/6.svg';
+import tone7 from '@/assets/tones/7.svg';
+import tone8 from '@/assets/tones/8.svg';
+import tone9 from '@/assets/tones/9.svg';
+import tone10 from '@/assets/tones/10.svg';
+
 const sealImages: Record<number, string> = {
   1: seal1,
   2: seal2,
@@ -45,6 +57,19 @@ const sealImages: Record<number, string> = {
   18: seal18,
   19: seal19,
   20: seal20,
+};
+
+const toneImages: Record<number, string> = {
+  1: tone1,
+  2: tone2,
+  3: tone3,
+  4: tone4,
+  5: tone5,
+  6: tone6,
+  7: tone7,
+  8: tone8,
+  9: tone9,
+  10: tone10,
 };
 interface KinInfoProps {
   kin: number;
@@ -146,9 +171,19 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         <div className="flex flex-col items-center w-64">
           <span className="text-sm text-black mb-3 h-5">Tom</span>
 
-          {/* FORMA FIXA (círculo) - tamanho menor */}
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center mb-1 border-4 border-black shrink-0">
-            <span className="text-2xl md:text-3xl font-bold text-black tom-num">{tone.number}</span>
+          {/* Tone SVG Image */}
+          <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
+            {toneImages[tone.number] ? (
+              <img 
+                src={toneImages[tone.number]} 
+                alt={`Tom ${tone.number}`}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <div className="w-full h-full rounded-full flex items-center justify-center border-4 border-black">
+                <span className="text-2xl md:text-3xl font-bold text-black tom-num">{tone.number}</span>
+              </div>
+            )}
           </div>
 
           {/* TÍTULO ABAIXO - altura fixa */}
