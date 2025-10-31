@@ -13,6 +13,16 @@ import seal7 from '@/assets/seals/7.svg';
 import seal8 from '@/assets/seals/8.svg';
 import seal9 from '@/assets/seals/9.svg';
 import seal10 from '@/assets/seals/10.svg';
+import seal11 from '@/assets/seals/11.svg';
+import seal12 from '@/assets/seals/12.svg';
+import seal13 from '@/assets/seals/13.svg';
+import seal14 from '@/assets/seals/14.svg';
+import seal15 from '@/assets/seals/15.svg';
+import seal16 from '@/assets/seals/16.svg';
+import seal17 from '@/assets/seals/17.svg';
+import seal18 from '@/assets/seals/18.svg';
+import seal19 from '@/assets/seals/19.svg';
+import seal20 from '@/assets/seals/20.svg';
 
 const sealImages: Record<number, string> = {
   1: seal1,
@@ -25,6 +35,16 @@ const sealImages: Record<number, string> = {
   8: seal8,
   9: seal9,
   10: seal10,
+  11: seal11,
+  12: seal12,
+  13: seal13,
+  14: seal14,
+  15: seal15,
+  16: seal16,
+  17: seal17,
+  18: seal18,
+  19: seal19,
+  20: seal20,
 };
 interface KinInfoProps {
   kin: number;
