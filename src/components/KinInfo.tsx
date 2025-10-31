@@ -35,6 +35,9 @@ import tone7 from '@/assets/tones/7.svg';
 import tone8 from '@/assets/tones/8.svg';
 import tone9 from '@/assets/tones/9.svg';
 import tone10 from '@/assets/tones/10.svg';
+import tone11 from '@/assets/tones/11.svg';
+import tone12 from '@/assets/tones/12.svg';
+import tone13 from '@/assets/tones/13.svg';
 
 const sealImages: Record<number, string> = {
   1: seal1,
@@ -70,6 +73,9 @@ const toneImages: Record<number, string> = {
   8: tone8,
   9: tone9,
   10: tone10,
+  11: tone11,
+  12: tone12,
+  13: tone13,
 };
 interface KinInfoProps {
   kin: number;
