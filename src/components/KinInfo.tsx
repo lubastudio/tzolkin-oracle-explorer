@@ -1,8 +1,31 @@
-
 import React from 'react';
 import { getKinComponents, getKinColorClass } from '@/lib/tzolkinData';
 import { solarSeals } from '@/lib/tzolkinData/data';
 
+// Import seal SVGs
+import seal1 from '@/assets/seals/1.svg';
+import seal2 from '@/assets/seals/2.svg';
+import seal3 from '@/assets/seals/3.svg';
+import seal4 from '@/assets/seals/4.svg';
+import seal5 from '@/assets/seals/5.svg';
+import seal6 from '@/assets/seals/6.svg';
+import seal7 from '@/assets/seals/7.svg';
+import seal8 from '@/assets/seals/8.svg';
+import seal9 from '@/assets/seals/9.svg';
+import seal10 from '@/assets/seals/10.svg';
+
+const sealImages: Record<number, string> = {
+  1: seal1,
+  2: seal2,
+  3: seal3,
+  4: seal4,
+  5: seal5,
+  6: seal6,
+  7: seal7,
+  8: seal8,
+  9: seal9,
+  10: seal10,
+};
 interface KinInfoProps {
   kin: number;
 }
@@ -74,9 +97,19 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         <div className="flex flex-col items-center w-64">
           <span className="text-sm text-black mb-3 h-5">Selo</span>
 
-          {/* FORMA FIXA (quadrado) - tamanho menor */}
-          <div className={`w-16 h-16 md:w-20 md:h-20 ${colorClass} rounded-lg flex items-center justify-center mb-1 shrink-0`}>
-            <span className={`text-2xl md:text-3xl font-bold ${sealTextColorClass} selo-num`}>{sealNumber}</span>
+          {/* Seal SVG Image */}
+          <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
+            {sealImages[sealNumber] ? (
+              <img 
+                src={sealImages[sealNumber]} 
+                alt={`Selo ${sealNumber}`}
+                className="w-full h-full object-contain"
+              />
+            ) : (
+              <div className={`w-full h-full ${colorClass} rounded-lg flex items-center justify-center`}>
+                <span className={`text-2xl md:text-3xl font-bold ${sealTextColorClass}`}>{sealNumber}</span>
+              </div>
+            )}
           </div>
 
           {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}

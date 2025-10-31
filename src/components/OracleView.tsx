@@ -3,6 +3,30 @@ import React from 'react';
 import { calculateOracle, getKinComponents, getKinColorClass, calculateWave } from '@/lib/tzolkinData';
 import { solarSeals } from '@/lib/tzolkinData/data';
 
+// Import seal SVGs
+import seal1 from '@/assets/seals/1.svg';
+import seal2 from '@/assets/seals/2.svg';
+import seal3 from '@/assets/seals/3.svg';
+import seal4 from '@/assets/seals/4.svg';
+import seal5 from '@/assets/seals/5.svg';
+import seal6 from '@/assets/seals/6.svg';
+import seal7 from '@/assets/seals/7.svg';
+import seal8 from '@/assets/seals/8.svg';
+import seal9 from '@/assets/seals/9.svg';
+import seal10 from '@/assets/seals/10.svg';
+
+const sealImages: Record<number, string> = {
+  1: seal1,
+  2: seal2,
+  3: seal3,
+  4: seal4,
+  5: seal5,
+  6: seal6,
+  7: seal7,
+  8: seal8,
+  9: seal9,
+  10: seal10,
+};
 interface OracleViewProps {
   kin: number;
   onKinSelect: (kin: number) => void;
@@ -66,10 +90,20 @@ const OracleView: React.FC<OracleViewProps> = ({
       <div className="oracle-item flex flex-col items-center">
         <span className="text-sm font-bold mb-1">{title}</span>
         <div 
-          className={`${colorClass} w-16 h-16 md:w-20 md:h-20 rounded-md flex items-center justify-center cursor-pointer hover:scale-105 transition`}
+          className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center cursor-pointer hover:scale-105 transition"
           onClick={() => onKinSelect(kinData.kin)}
         >
-          <div className="font-bold">Kin {kinData.kin}</div>
+          {sealImages[kinData.sealNumber] ? (
+            <img 
+              src={sealImages[kinData.sealNumber]} 
+              alt={`Selo ${kinData.sealNumber}`}
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <div className={`${colorClass} w-full h-full rounded-md flex items-center justify-center`}>
+              <div className="font-bold">Kin {kinData.kin}</div>
+            </div>
+          )}
         </div>
         <div className="text-xs mt-1 text-center">
           <div>{kinData.seal.name.split(' ')[0]}</div>
