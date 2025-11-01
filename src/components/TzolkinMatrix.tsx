@@ -80,11 +80,11 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
       <h2 className="text-base mb-3 text-black text-center">Matriz Tzolkin</h2>
       <div className="flex flex-row items-start justify-center w-full pt-2 mt-12 gap-1">
         {/* Column of seals on the left */}
-        <div className="flex flex-col -mt-px">
+        <div className="flex flex-col">
           {Array.from({ length: 20 }, (_, i) => i + 1).map(sealNumber => (
             <div 
               key={`seal-${sealNumber}`}
-              className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 flex items-center justify-center -mt-px"
+              className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 flex items-center justify-center border-0"
             >
               <img 
                 src={sealImages[sealNumber]} 

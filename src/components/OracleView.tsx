@@ -25,20 +25,20 @@ import seal18 from '@/assets/seals/18.svg';
 import seal19 from '@/assets/seals/19.svg';
 import seal20 from '@/assets/seals/20.svg';
 
-// Import tone indicator SVGs
-import toneIcon1 from '@/assets/tones/t1.svg';
-import toneIcon2 from '@/assets/tones/t2.svg';
-import toneIcon3 from '@/assets/tones/t3.svg';
-import toneIcon4 from '@/assets/tones/t4.svg';
-import toneIcon5 from '@/assets/tones/t5.svg';
-import toneIcon6 from '@/assets/tones/t6.svg';
-import toneIcon7 from '@/assets/tones/t7.svg';
-import toneIcon8 from '@/assets/tones/t8.svg';
-import toneIcon9 from '@/assets/tones/t9.svg';
-import toneIcon10 from '@/assets/tones/t10.svg';
-import toneIcon11 from '@/assets/tones/t11.svg';
-import toneIcon12 from '@/assets/tones/t12.svg';
-import toneIcon13 from '@/assets/tones/t13.svg';
+// Import tone SVGs (numbered)
+import tone1 from '@/assets/tones/1.svg';
+import tone2 from '@/assets/tones/2.svg';
+import tone3 from '@/assets/tones/3.svg';
+import tone4 from '@/assets/tones/4.svg';
+import tone5 from '@/assets/tones/5.svg';
+import tone6 from '@/assets/tones/6.svg';
+import tone7 from '@/assets/tones/7.svg';
+import tone8 from '@/assets/tones/8.svg';
+import tone9 from '@/assets/tones/9.svg';
+import tone10 from '@/assets/tones/10.svg';
+import tone11 from '@/assets/tones/11.svg';
+import tone12 from '@/assets/tones/12.svg';
+import tone13 from '@/assets/tones/13.svg';
 
 const sealImages: Record<number, string> = {
   1: seal1,
@@ -63,20 +63,20 @@ const sealImages: Record<number, string> = {
   20: seal20,
 };
 
-const toneIconImages: Record<number, string> = {
-  1: toneIcon1,
-  2: toneIcon2,
-  3: toneIcon3,
-  4: toneIcon4,
-  5: toneIcon5,
-  6: toneIcon6,
-  7: toneIcon7,
-  8: toneIcon8,
-  9: toneIcon9,
-  10: toneIcon10,
-  11: toneIcon11,
-  12: toneIcon12,
-  13: toneIcon13,
+const toneImages: Record<number, string> = {
+  1: tone1,
+  2: tone2,
+  3: tone3,
+  4: tone4,
+  5: tone5,
+  6: tone6,
+  7: tone7,
+  8: tone8,
+  9: tone9,
+  10: tone10,
+  11: tone11,
+  12: tone12,
+  13: tone13,
 };
 interface OracleViewProps {
   kin: number;
@@ -141,10 +141,10 @@ const OracleView: React.FC<OracleViewProps> = ({
       <div className="oracle-item flex flex-col items-center">
         <span className="text-sm font-bold mb-1">{title}</span>
         {/* Tone icon above seal */}
-        {toneIconImages[kinData.toneNumber] && (
+        {toneImages[kinData.toneNumber] && (
           <div className="h-4 w-auto mb-1 flex items-center justify-center">
             <img 
-              src={toneIconImages[kinData.toneNumber]} 
+              src={toneImages[kinData.toneNumber]} 
               alt={`Tom ${kinData.toneNumber}`}
               className="h-full w-auto object-contain"
             />

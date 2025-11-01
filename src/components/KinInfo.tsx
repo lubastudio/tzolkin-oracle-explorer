@@ -146,7 +146,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
       {/* Seal and Tone side by side */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
         <div className="flex flex-col items-center w-64">
-          <span className="text-sm text-black mb-3 h-5">Selo</span>
+          <span className="text-sm text-black mb-3 h-5">Selo {sealNumber}</span>
 
           {/* Seal SVG Image */}
           <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
@@ -175,7 +175,7 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         </div>
         
         <div className="flex flex-col items-center w-64">
-          <span className="text-sm text-black mb-3 h-5">Tom</span>
+          <span className="text-sm text-black mb-3 h-5">Tom {tone.number}</span>
 
           {/* Tone SVG Image */}
           <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
