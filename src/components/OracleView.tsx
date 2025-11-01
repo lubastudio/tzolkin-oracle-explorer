@@ -36,6 +36,9 @@ import toneIcon7 from '@/assets/tones/t7.svg';
 import toneIcon8 from '@/assets/tones/t8.svg';
 import toneIcon9 from '@/assets/tones/t9.svg';
 import toneIcon10 from '@/assets/tones/t10.svg';
+import toneIcon11 from '@/assets/tones/t11.svg';
+import toneIcon12 from '@/assets/tones/t12.svg';
+import toneIcon13 from '@/assets/tones/t13.svg';
 
 const sealImages: Record<number, string> = {
   1: seal1,
@@ -71,6 +74,9 @@ const toneIconImages: Record<number, string> = {
   8: toneIcon8,
   9: toneIcon9,
   10: toneIcon10,
+  11: toneIcon11,
+  12: toneIcon12,
+  13: toneIcon13,
 };
 interface OracleViewProps {
   kin: number;
@@ -227,7 +233,7 @@ const OracleView: React.FC<OracleViewProps> = ({
       
       {view === 'oracle' ? (
         <div className="flex justify-center">
-          <div className="grid grid-cols-3 grid-rows-3 gap-4 p-4" style={{
+          <div className="grid grid-cols-3 grid-rows-3 gap-2 p-4" style={{
             gridTemplateAreas: `
               ". guia ."
               "antipoda destino analogico"

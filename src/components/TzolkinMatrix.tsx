@@ -38,17 +38,18 @@ interface TzolkinMatrixProps {
 
 const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect }) => {
   const renderMatrix = () => {
-    // Create an array for the 20 rows (one for each seal)
-    const rows = [];
+    // Create matrix organized by columns (tones)
+    const columns = [];
     
-    // For each of the 20 seals, create a row
-    for (let sealIndex = 0; sealIndex < 20; sealIndex++) {
+    // Each column represents one tone (1-13)
+    for (let toneIndex = 0; toneIndex < 13; toneIndex++) {
       const cells = [];
       
-      // Each row has 13 columns (one for each tone)
-      for (let toneIndex = 0; toneIndex < 13; toneIndex++) {
-        // Calculate the kin number based on the pattern in the image
-        const kin = sealIndex + 1 + (toneIndex * 20);
+      // Each column has 20 rows (one for each seal)
+      for (let sealIndex = 0; sealIndex < 20; sealIndex++) {
+        // Calculate the kin number: each column starts at (toneIndex * 20) + 1
+        // and increments by seal index
+        const kin = (toneIndex * 20) + sealIndex + 1;
         const isSelected = kin === selectedKin;
         
         cells.push(
@@ -64,14 +65,14 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         );
       }
       
-      rows.push(
-        <div key={`seal-row-${sealIndex+1}`} className="flex flex-row -mt-px">
+      columns.push(
+        <div key={`tone-col-${toneIndex+1}`} className="flex flex-col -ml-px">
           {cells}
         </div>
       );
     }
     
-    return rows;
+    return columns;
   };
 
   return (
@@ -95,7 +96,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         </div>
         
         {/* Matrix grid */}
-        <div className="flex flex-col">
+        <div className="flex flex-row -ml-px">
           {renderMatrix()}
         </div>
       </div>
