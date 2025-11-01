@@ -24,32 +24,11 @@ import seal18 from '@/assets/seals/18.svg';
 import seal19 from '@/assets/seals/19.svg';
 import seal20 from '@/assets/seals/20.svg';
 
-// Import tone SVGs
-import tone1 from '@/assets/tones/t1.svg';
-import tone2 from '@/assets/tones/t2.svg';
-import tone3 from '@/assets/tones/t3.svg';
-import tone4 from '@/assets/tones/t4.svg';
-import tone5 from '@/assets/tones/t5.svg';
-import tone6 from '@/assets/tones/t6.svg';
-import tone7 from '@/assets/tones/t7.svg';
-import tone8 from '@/assets/tones/t8.svg';
-import tone9 from '@/assets/tones/t9.svg';
-import tone10 from '@/assets/tones/t10.svg';
-import tone11 from '@/assets/tones/t11.svg';
-import tone12 from '@/assets/tones/t12.svg';
-import tone13 from '@/assets/tones/t13.svg';
-
 const sealImages: Record<number, string> = {
   1: seal1, 2: seal2, 3: seal3, 4: seal4, 5: seal5,
   6: seal6, 7: seal7, 8: seal8, 9: seal9, 10: seal10,
   11: seal11, 12: seal12, 13: seal13, 14: seal14, 15: seal15,
   16: seal16, 17: seal17, 18: seal18, 19: seal19, 20: seal20,
-};
-
-const toneImages: Record<number, string> = {
-  1: tone1, 2: tone2, 3: tone3, 4: tone4, 5: tone5,
-  6: tone6, 7: tone7, 8: tone8, 9: tone9, 10: tone10,
-  11: tone11, 12: tone12, 13: tone13,
 };
 
 interface TzolkinMatrixProps {
@@ -72,24 +51,16 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         // and increments by seal index
         const kin = (toneIndex * 20) + sealIndex + 1;
         const isSelected = kin === selectedKin;
-        const toneNumber = toneIndex + 1; // Tone 1-13
         
         cells.push(
           <div 
             key={`kin-${kin}`}
-            className={`tzolkin-cell w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 border border-black flex flex-col items-center justify-center ${getKinColorClass(kin)} ${
+            className={`tzolkin-cell w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 border border-black text-xs flex items-center justify-center ${getKinColorClass(kin)} ${
               isSelected ? 'ring-2 ring-black scale-110' : ''
-            } cursor-pointer`}
+            }`}
             onClick={() => onKinSelect(kin)}
           >
-            {/* Tone icon */}
-            <img 
-              src={toneImages[toneNumber]} 
-              alt={`Tom ${toneNumber}`}
-              className="w-3 h-2 object-contain"
-            />
-            {/* Kin number */}
-            <span className="text-[0.5rem] leading-none">{kin}</span>
+            {kin}
           </div>
         );
       }
