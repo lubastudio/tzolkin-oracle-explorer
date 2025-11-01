@@ -77,18 +77,18 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
   return (
     <div className="p-4">
       <h2 className="text-base mb-3 text-black text-center">Matriz Tzolkin</h2>
-      <div className="flex flex-row items-start justify-center w-full pt-2 mt-12 gap-3">
+      <div className="flex flex-row items-start justify-center w-full pt-2 mt-12 gap-1">
         {/* Column of seals on the left */}
         <div className="flex flex-col -mt-px">
           {Array.from({ length: 20 }, (_, i) => i + 1).map(sealNumber => (
             <div 
               key={`seal-${sealNumber}`}
-              className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 border border-black flex items-center justify-center -mt-px"
+              className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 flex items-center justify-center -mt-px"
             >
               <img 
                 src={sealImages[sealNumber]} 
                 alt={`Selo ${sealNumber}`}
-                className="w-full h-full object-contain p-0.5"
+                className="w-full h-full object-contain"
               />
             </div>
           ))}

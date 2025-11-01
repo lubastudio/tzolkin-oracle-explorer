@@ -25,6 +25,18 @@ import seal18 from '@/assets/seals/18.svg';
 import seal19 from '@/assets/seals/19.svg';
 import seal20 from '@/assets/seals/20.svg';
 
+// Import tone indicator SVGs
+import toneIcon1 from '@/assets/tones/t1.svg';
+import toneIcon2 from '@/assets/tones/t2.svg';
+import toneIcon3 from '@/assets/tones/t3.svg';
+import toneIcon4 from '@/assets/tones/t4.svg';
+import toneIcon5 from '@/assets/tones/t5.svg';
+import toneIcon6 from '@/assets/tones/t6.svg';
+import toneIcon7 from '@/assets/tones/t7.svg';
+import toneIcon8 from '@/assets/tones/t8.svg';
+import toneIcon9 from '@/assets/tones/t9.svg';
+import toneIcon10 from '@/assets/tones/t10.svg';
+
 const sealImages: Record<number, string> = {
   1: seal1,
   2: seal2,
@@ -46,6 +58,19 @@ const sealImages: Record<number, string> = {
   18: seal18,
   19: seal19,
   20: seal20,
+};
+
+const toneIconImages: Record<number, string> = {
+  1: toneIcon1,
+  2: toneIcon2,
+  3: toneIcon3,
+  4: toneIcon4,
+  5: toneIcon5,
+  6: toneIcon6,
+  7: toneIcon7,
+  8: toneIcon8,
+  9: toneIcon9,
+  10: toneIcon10,
 };
 interface OracleViewProps {
   kin: number;
@@ -109,6 +134,16 @@ const OracleView: React.FC<OracleViewProps> = ({
     return (
       <div className="oracle-item flex flex-col items-center">
         <span className="text-sm font-bold mb-1">{title}</span>
+        {/* Tone icon above seal */}
+        {toneIconImages[kinData.toneNumber] && (
+          <div className="h-4 w-auto mb-1 flex items-center justify-center">
+            <img 
+              src={toneIconImages[kinData.toneNumber]} 
+              alt={`Tom ${kinData.toneNumber}`}
+              className="h-full w-auto object-contain"
+            />
+          </div>
+        )}
         <div 
           className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center cursor-pointer hover:scale-105 transition"
           onClick={() => onKinSelect(kinData.kin)}
