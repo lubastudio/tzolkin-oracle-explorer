@@ -74,10 +74,13 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
         const isSelected = kin === selectedKin;
         const toneNumber = toneIndex + 1; // Tone 1-13
         
+        const colorClass = getKinColorClass(kin);
+        const needsWhiteIcon = colorClass.includes('bg-red') || colorClass.includes('bg-blue');
+        
         cells.push(
           <div 
             key={`kin-${kin}`}
-            className={`tzolkin-cell w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 border border-black flex flex-col items-center justify-center ${getKinColorClass(kin)} ${
+            className={`tzolkin-cell flex-1 border border-black flex flex-col items-center justify-center gap-0.5 ${colorClass} ${
               isSelected ? 'ring-2 ring-black scale-110' : ''
             } cursor-pointer`}
             onClick={() => onKinSelect(kin)}
@@ -86,16 +89,16 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
             <img 
               src={toneImages[toneNumber]} 
               alt={`Tom ${toneNumber}`}
-              className="w-3 h-2 object-contain"
+              className={`w-3 h-2 object-contain ${needsWhiteIcon ? 'brightness-0 invert' : ''}`}
             />
             {/* Kin number */}
-            <span className="text-[0.5rem] leading-none">{kin}</span>
+            <span className="text-[0.5rem] leading-none mt-0.5">{kin}</span>
           </div>
         );
       }
       
       columns.push(
-        <div key={`tone-col-${toneIndex+1}`} className="flex flex-col -ml-px">
+        <div key={`tone-col-${toneIndex+1}`} className="flex flex-col flex-1 -ml-px">
           {cells}
         </div>
       );
@@ -105,27 +108,27 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-full flex flex-col">
       <h2 className="text-base mb-3 text-black text-center">Matriz Tzolkin</h2>
-      <div className="flex flex-row items-start justify-center w-full pt-2 mt-12 gap-1">
+      <div className="flex flex-row items-start justify-center w-full flex-1 gap-1">
         {/* Column of seals on the left */}
-        <div className="flex flex-col">
+        <div className="flex flex-col flex-1">
           {Array.from({ length: 20 }, (_, i) => i + 1).map(sealNumber => (
             <div 
               key={`seal-${sealNumber}`}
-              className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 flex items-center justify-center border-0"
+              className="flex-1 flex items-center justify-center border-0"
             >
               <img 
                 src={sealImages[sealNumber]} 
                 alt={`Selo ${sealNumber}`}
-                className="w-full h-full object-contain"
+                className="w-5 h-5 md:w-6 md:h-6 object-contain"
               />
             </div>
           ))}
         </div>
         
         {/* Matrix grid */}
-        <div className="flex flex-row -ml-px">
+        <div className="flex flex-row flex-1 -ml-px">
           {renderMatrix()}
         </div>
       </div>
