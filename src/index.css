@@ -48,39 +48,8 @@
 }
 
 @layer components {
-  /* App Shell - Mobile-first layout */
-  .app-shell {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 0.5rem;
-  }
-  
-  @media (min-width: 768px) {
-    .app-shell {
-      padding: 1.5rem;
-    }
-  }
-  
-  .app-layout {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .app-sidebar {
-    flex-basis: clamp(56px, 18vw, 96px);
-    flex-shrink: 0;
-  }
-  
-  .app-main {
-    flex: 1;
-    min-width: 0;
-  }
-  
-  /* Tzolkin cell adjustments for mobile */
   .tzolkin-cell {
     @apply flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-105;
-    font-size: clamp(9px, 2.6vw, 13px);
-    line-height: 1.05;
   }
   
   .oracle-item {
