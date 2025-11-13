@@ -14,34 +14,31 @@ const Index = () => {
 
   return (
     <div>
-      <main className="container mx-auto py-6 px-4 md:px-6">
-        {/* Responsive flex layout */}
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar: Date Converter and Kin Info */}
-          <div className="w-full md:w-[72px] lg:w-[120px] flex-shrink-0 space-y-4">
+      <main className="container mx-auto py-6 px-4 md:px-6 space-y-4">
+        {/* Section 1: 3-column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Column 1: Date Converter and Kin Info - calculator above kin */}
+          <div className="lg:col-span-3 space-y-4">
             <DateConverter onKinSelect={setSelectedKin} />
             <KinInfo kin={selectedKin} />
           </div>
           
-          {/* Main content area */}
-          <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Oracle View */}
-            <div className="space-y-4">
-              <OracleView
-                kin={selectedKin}
-                onKinSelect={setSelectedKin}
-                view="oracle"
-                onViewChange={() => {}} // Disabled function since we'll remove the buttons
-              />
-            </div>
-            
-            {/* Tzolkin Matrix */}
-            <div className="space-y-4">
-              <TzolkinMatrix
-                selectedKin={selectedKin}
-                onKinSelect={setSelectedKin}
-              />
-            </div>
+          {/* Column 2: Oracle View - moved from column 3 */}
+          <div className="lg:col-span-4 space-y-4">
+            <OracleView
+              kin={selectedKin}
+              onKinSelect={setSelectedKin}
+              view="oracle"
+              onViewChange={() => {}} // Disabled function since we'll remove the buttons
+            />
+          </div>
+          
+          {/* Column 3: Tzolkin Matrix - moved from column 1 */}
+          <div className="lg:col-span-5 space-y-4">
+            <TzolkinMatrix
+              selectedKin={selectedKin}
+              onKinSelect={setSelectedKin}
+            />
           </div>
         </div>
         
