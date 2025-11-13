@@ -76,7 +76,7 @@ const TzolkinMatrix: React.FC<TzolkinMatrixProps> = ({ selectedKin, onKinSelect 
   };
 
   return (
-    <div className="p-4">
+    <div className="px-2 py-4 md:px-4">
       <h2 className="text-base mb-3 text-black text-center">Matriz Tzolkin</h2>
       <div className="flex flex-row items-start justify-center w-full pt-2 mt-12 gap-1">
         {/* Column of seals on the left */}
