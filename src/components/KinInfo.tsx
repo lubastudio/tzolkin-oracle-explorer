@@ -25,19 +25,19 @@ import seal19 from '@/assets/seals/19.svg';
 import seal20 from '@/assets/seals/20.svg';
 
 // Import tone SVGs
-import tone1 from '@/assets/tones/1.svg';
-import tone2 from '@/assets/tones/2.svg';
-import tone3 from '@/assets/tones/3.svg';
-import tone4 from '@/assets/tones/4.svg';
-import tone5 from '@/assets/tones/5.svg';
-import tone6 from '@/assets/tones/6.svg';
-import tone7 from '@/assets/tones/7.svg';
-import tone8 from '@/assets/tones/8.svg';
-import tone9 from '@/assets/tones/9.svg';
-import tone10 from '@/assets/tones/10.svg';
-import tone11 from '@/assets/tones/11.svg';
-import tone12 from '@/assets/tones/12.svg';
-import tone13 from '@/assets/tones/13.svg';
+import tone1 from '@/assets/tones/t1.svg';
+import tone2 from '@/assets/tones/t2.svg';
+import tone3 from '@/assets/tones/t3.svg';
+import tone4 from '@/assets/tones/t4.svg';
+import tone5 from '@/assets/tones/t5.svg';
+import tone6 from '@/assets/tones/t6.svg';
+import tone7 from '@/assets/tones/t7.svg';
+import tone8 from '@/assets/tones/t8.svg';
+import tone9 from '@/assets/tones/t9.svg';
+import tone10 from '@/assets/tones/t10.svg';
+import tone11 from '@/assets/tones/t11.svg';
+import tone12 from '@/assets/tones/t12.svg';
+import tone13 from '@/assets/tones/t13.svg';
 
 const sealImages: Record<number, string> = {
   1: seal1,
