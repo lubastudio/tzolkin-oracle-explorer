@@ -135,21 +135,20 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   
   return (
     <div className="p-4">
-      {/* Kin number and name at top */}
-      <div className="text-center mb-4">
-        <h3 className="text-2xl md:text-3xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
-        <div className="text-base font-bold kin-subtitle">
-          <div>{formatKinName()}</div>
+      {/* Mobile: 3 separate cards */}
+      <div className="md:hidden flex flex-col gap-4">
+        {/* Card 1: Kin number and name */}
+        <div className="bg-white/48 rounded-lg p-4 text-center">
+          <h3 className="text-2xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
+          <div className="text-base font-bold kin-subtitle">
+            <div>{formatKinName()}</div>
+          </div>
         </div>
-      </div>
-      
-      {/* Seal and Tone side by side */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-4">
-        <div className="flex flex-col items-center w-64">
-          <span className="text-sm text-black mb-3 h-5">Selo {sealNumber}</span>
-
-          {/* Seal SVG Image */}
-          <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
+        
+        {/* Card 2: Seal */}
+        <div className="bg-white/48 rounded-lg p-4 flex flex-col items-center">
+          <span className="text-sm text-black mb-3">Selo {sealNumber}</span>
+          <div className="w-16 h-16 flex items-center justify-center mb-1 shrink-0">
             {sealImages[sealNumber] ? (
               <img 
                 src={sealImages[sealNumber]} 
@@ -158,27 +157,22 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
               />
             ) : (
               <div className={`w-full h-full ${colorClass} rounded-lg flex items-center justify-center`}>
-                <span className={`text-2xl md:text-3xl font-bold ${sealTextColorClass}`}>{sealNumber}</span>
+                <span className={`text-2xl font-bold ${sealTextColorClass}`}>{sealNumber}</span>
               </div>
             )}
           </div>
-
-          {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
-          <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+          <h4 className="text-base font-bold text-center whitespace-normal break-words mb-2">
             {getBaseSealName()}
           </h4>
-
-          {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
-          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-xs text-black text-center leading-tight whitespace-normal break-words">
             {seal.description}
           </p>
         </div>
         
-        <div className="flex flex-col items-center w-64">
-          <span className="text-sm text-black mb-3 h-5">Tom {tone.number}</span>
-
-          {/* Tone SVG Image */}
-          <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-1 shrink-0">
+        {/* Card 3: Tone */}
+        <div className="bg-white/48 rounded-lg p-4 flex flex-col items-center">
+          <span className="text-sm text-black mb-3">Tom {tone.number}</span>
+          <div className="w-16 h-16 flex items-center justify-center mb-1 shrink-0">
             {toneImages[tone.number] ? (
               <img 
                 src={toneImages[tone.number]} 
@@ -187,20 +181,90 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
               />
             ) : (
               <div className="w-full h-full rounded-full flex items-center justify-center border-4 border-black">
-                <span className="text-2xl md:text-3xl font-bold text-black tom-num">{tone.number}</span>
+                <span className="text-2xl font-bold text-black tom-num">{tone.number}</span>
               </div>
             )}
           </div>
-
-          {/* TÍTULO ABAIXO - altura fixa */}
-          <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+          <h4 className="text-base font-bold text-center whitespace-normal break-words mb-2">
             {tone.name}
           </h4>
-
-          {/* ASPECTOS - altura fixa */}
-          <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+          <p className="text-xs text-black text-center leading-tight whitespace-normal break-words">
             {tone.description}
           </p>
+        </div>
+      </div>
+      
+      {/* Desktop: Single card with all content */}
+      <div className="hidden md:block">
+        <div className="bg-white/48 rounded-lg p-6">
+          {/* Kin number and name at top */}
+          <div className="text-center mb-4">
+            <h3 className="text-3xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
+            <div className="text-base font-bold kin-subtitle">
+              <div>{formatKinName()}</div>
+            </div>
+          </div>
+          
+          {/* Seal and Tone side by side */}
+          <div className="flex flex-row items-center justify-center gap-6 mb-4">
+            <div className="flex flex-col items-center w-64">
+              <span className="text-sm text-black mb-3 h-5">Selo {sealNumber}</span>
+
+              {/* Seal SVG Image */}
+              <div className="w-20 h-20 flex items-center justify-center mb-1 shrink-0">
+                {sealImages[sealNumber] ? (
+                  <img 
+                    src={sealImages[sealNumber]} 
+                    alt={`Selo ${sealNumber}`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className={`w-full h-full ${colorClass} rounded-lg flex items-center justify-center`}>
+                    <span className={`text-3xl font-bold ${sealTextColorClass}`}>{sealNumber}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
+              <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+                {getBaseSealName()}
+              </h4>
+
+              {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
+              <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+                {seal.description}
+              </p>
+            </div>
+            
+            <div className="flex flex-col items-center w-64">
+              <span className="text-sm text-black mb-3 h-5">Tom {tone.number}</span>
+
+              {/* Tone SVG Image */}
+              <div className="w-20 h-20 flex items-center justify-center mb-1 shrink-0">
+                {toneImages[tone.number] ? (
+                  <img 
+                    src={toneImages[tone.number]} 
+                    alt={`Tom ${tone.number}`}
+                    className="w-full h-full object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-full rounded-full flex items-center justify-center border-4 border-black">
+                    <span className="text-3xl font-bold text-black tom-num">{tone.number}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* TÍTULO ABAIXO - altura fixa */}
+              <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+                {tone.name}
+              </h4>
+
+              {/* ASPECTOS - altura fixa */}
+              <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+                {tone.description}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       
