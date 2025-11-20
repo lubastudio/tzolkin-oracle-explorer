@@ -227,10 +227,10 @@ const OracleView: React.FC<OracleViewProps> = ({
   
   return (
     <div className="p-4">
-      <div className="bg-white/48 rounded-lg p-6">
-        <h2 className="text-base text-black mb-4 text-center">
-          {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
-        </h2>
+      <h2 className="text-base text-black mb-4 text-center">
+        {view === 'oracle' ? 'Oráculo Destino' : 'Onda Encantada'}
+      </h2>
+      <div>
         
         {view === 'oracle' ? (
           <div className="flex justify-center">

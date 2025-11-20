@@ -135,18 +135,18 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
   
   return (
     <div className="p-4">
-      {/* Mobile: 3 separate cards */}
+      {/* Mobile: 3 separate sections */}
       <div className="md:hidden flex flex-col gap-4">
-        {/* Card 1: Kin number and name */}
-        <div className="bg-white/48 rounded-lg p-4 text-center">
+        {/* Section 1: Kin number and name */}
+        <div className="p-4 text-center">
           <h3 className="text-2xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
           <div className="text-base font-bold kin-subtitle">
             <div>{formatKinName()}</div>
           </div>
         </div>
         
-        {/* Card 2: Seal */}
-        <div className="bg-white/48 rounded-lg p-4 flex flex-col items-center">
+        {/* Section 2: Seal */}
+        <div className="p-4 flex flex-col items-center">
           <span className="text-sm text-black mb-3">Selo {sealNumber}</span>
           <div className="w-16 h-16 flex items-center justify-center mb-1 shrink-0">
             {sealImages[sealNumber] ? (
@@ -169,8 +169,8 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
           </p>
         </div>
         
-        {/* Card 3: Tone */}
-        <div className="bg-white/48 rounded-lg p-4 flex flex-col items-center">
+        {/* Section 3: Tone */}
+        <div className="p-4 flex flex-col items-center">
           <span className="text-sm text-black mb-3">Tom {tone.number}</span>
           <div className="w-16 h-16 flex items-center justify-center mb-1 shrink-0">
             {toneImages[tone.number] ? (
@@ -194,9 +194,9 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
         </div>
       </div>
       
-      {/* Desktop: Single card with all content */}
+      {/* Desktop: Single section with all content */}
       <div className="hidden md:block">
-        <div className="bg-white/48 rounded-lg p-6">
+        <div className="p-6">
           {/* Kin number and name at top */}
           <div className="text-center mb-4">
             <h3 className="text-3xl font-extrabold mb-2 kin-heading">Kin {kin}</h3>
@@ -225,17 +225,15 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
                 )}
               </div>
 
-              {/* TÍTULO ABAIXO, CENTRALIZADO, QUEBRANDO LINHA - altura fixa */}
-              <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+              {/* Seal Name and Description */}
+              <h4 className="text-base font-bold text-center whitespace-normal break-words mb-2">
                 {getBaseSealName()}
               </h4>
-
-              {/* ASPECTOS: 2 linhas máx. sem empurrar a forma - altura fixa */}
-              <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+              <p className="text-xs text-black text-center leading-tight whitespace-normal break-words">
                 {seal.description}
               </p>
             </div>
-            
+
             <div className="flex flex-col items-center w-64">
               <span className="text-sm text-black mb-3 h-5">Tom {tone.number}</span>
 
@@ -254,20 +252,17 @@ const KinInfo: React.FC<KinInfoProps> = ({ kin }) => {
                 )}
               </div>
 
-              {/* TÍTULO ABAIXO - altura fixa */}
-              <h4 className="text-base font-bold text-center max-w-64 whitespace-normal break-words h-16 flex items-center">
+              {/* Tone Name and Description */}
+              <h4 className="text-base font-bold text-center whitespace-normal break-words mb-2">
                 {tone.name}
               </h4>
-
-              {/* ASPECTOS - altura fixa */}
-              <p className="text-xs text-black text-center leading-tight max-w-64 h-10 whitespace-normal break-words flex items-center">
+              <p className="text-xs text-black text-center leading-tight whitespace-normal break-words">
                 {tone.description}
               </p>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
